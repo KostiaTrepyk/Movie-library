@@ -1,0 +1,46 @@
+.SearchInput {
+    box-sizing: border-box;
+    height: 40px;
+    width: 0px;
+    background-color: #3d3d3d;
+    border-radius: 5px;
+    border: 0px solid #4e4e4e;
+    font-size: 1rem;
+    color: inherit;
+    opacity: 0;
+    outline: none;
+    padding: 0;
+}
+.SearchInput:hover {
+    background-color: #535353;
+}
+.SearchInput:focus {
+    background-color: #535353;
+}
+.SearchInput[data-open="true"] {
+    border-width: 2px;
+    opacity: 1;
+    width: 100%;
+    padding: 8px 10px 8px 20px;
+    transition: 0.3s width, 0.2s opacity;
+    margin-inline: 5px;
+}
+
+.SearchInput::-webkit-search-cancel-button {
+    appearance: none;
+    opacity: 0;
+    height: 12px;
+    width: 12px;
+    background-image: url(https://cdn-icons-png.flaticon.com/512/271/271203.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: 0.3s opacity;
+    cursor: pointer;
+    margin-left: 5px;
+}
+.SearchInput:hover::-webkit-search-cancel-button {
+    opacity: 1;
+}
+.SearchInput:focus::-webkit-search-cancel-button {
+    opacity: 1;
+}
