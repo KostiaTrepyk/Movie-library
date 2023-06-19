@@ -34,14 +34,13 @@ const Navbar = () => {
     }
 
     function onSearchBtnClick() {
-        if (Boolean(query) && isSearchInpOpened) {
+        if (Boolean(query)) {
             /* Search */
             const path = MOVIEROUTE.path.replace(":title", query);
             navigate(path);
             toggleSearchInp();
         } else {
             /* Open-Close */
-            setQuery(() => "");
             toggleSearchInp();
         }
     }
