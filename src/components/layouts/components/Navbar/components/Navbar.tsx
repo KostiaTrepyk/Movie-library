@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { AppBar, Toolbar, Typography, Box, IconButton, Button, Theme, SxProps } from "@mui/material";
+import { AppBar, Toolbar, Typography, Box, IconButton, Button } from "@mui/material";
 import {
     HOMEROUTE,
     LOGINROUTE,
@@ -18,6 +18,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import SearchInput from "./SearchInput";
 import { useState } from "react";
+import { useTheme } from "@emotion/react";
 
 /* NavbarRoutes. Max 5. Don't add private routes.*/
 const navbarRoutes: Route[] = [HOMEROUTE, LOGINROUTE, REGISTRATIONROUTE, PROFILEROUTE];
@@ -28,22 +29,39 @@ const Navbar = () => {
     const [isSearchInpOpened, toggleSearchInp] = useToggle();
 
     const navigate = useNavigate();
+    const theme = useTheme() as any;
 
     function navigateToHome() {
         navigate(HOMEROUTE.path);
     }
 
-    function onSearchBtnClick() {
-        if (Boolean(query)) {
-            /* Search */
-            const path = MOVIEROUTE.path.replace(":title", query);
-            navigate(path);
-            toggleSearchInp();
+    function toggleSearchInpHandler() {
+        const windowWidth = window.innerWidth;
+        const mobileMaxWidth = theme?.breakpoints?.values?.sm;
+        if (windowWidth >= mobileMaxWidth) {
         } else {
-            /* Open-Close */
             toggleSearchInp();
         }
     }
+
+    function SearchBtnClickHanlder() {
+        if (Boolean(query)) {
+            /* Search */
+            SearchSubmitHanlder();
+        } else {
+            /* Open-Close */
+            toggleSearchInpHandler();
+        }
+    }
+
+    function SearchSubmitHanlder(e?: React.FormEvent<HTMLFormElement>) {
+        e && e.preventDefault();
+        const path = MOVIEROUTE.path.replace(":title", query);
+        navigate(path);
+        toggleSearchInpHandler();
+        setQuery(() => "");
+    }
+
     return (
         <AppBar position="fixed">
             <Box sx={{ padding: { md: "0 10vw", sm: "0 5vw", xs: "0 15px" } }}>
@@ -134,28 +152,41 @@ const Navbar = () => {
                         )}
 
                         {/* Serach input Mobile*/}
-                        <SearchInput
-                            open={isSearchInpOpened}
-                            type="search"
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
-                            onSubmit={() => console.log("submit")}
-                        />
+                        <Box
+                            component={"form"}
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                flexGrow: isSearchInpOpened ? 1 : 0,
+                            }}
+                            onSubmit={SearchSubmitHanlder}
+                        >
+                            <SearchInput
+                                open={isSearchInpOpened}
+                                type="search"
+                                value={query}
+                                onChange={(e) => setQuery(() => e.target.value)}
+                            />
+                        </Box>
                     </Box>
 
                     <Box sx={{ display: "flex", gap: { sm: 2, xs: 1 }, justifyContent: "end" }}>
                         {/* Serach input PC*/}
-                        <Box sx={{ display: { sm: "block", xs: "none" } }}>
+                        <Box
+                            component={"form"}
+                            sx={{ display: { sm: "block", xs: "none" } }}
+                            onSubmit={SearchSubmitHanlder}
+                        >
                             <SearchInput
                                 open={true}
                                 type="search"
                                 value={query}
-                                onChange={(e) => setQuery(e.target.value)}
+                                onChange={(e) => setQuery(() => e.target.value)}
                             />
                         </Box>
 
                         {/* SearchBtn */}
-                        <IconButton onClick={onSearchBtnClick}>
+                        <IconButton onClick={SearchBtnClickHanlder}>
                             <SearchIcon />
                         </IconButton>
 

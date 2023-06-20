@@ -22,7 +22,7 @@
     opacity: 1;
     width: 100%;
     padding: 8px 10px 8px 20px;
-    transition: 0.3s width, 0.2s opacity;
+    transition: 0.3s width ease-out, 0.3s opacity ease-in;
     margin-inline: 5px;
 }
 
