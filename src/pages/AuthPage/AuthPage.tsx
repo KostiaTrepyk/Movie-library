@@ -11,7 +11,7 @@ const AuthPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const isLoginForm: boolean = location.pathname == LOGINROUTE.path;
+    const isLoginForm: boolean = location.pathname === LOGINROUTE.path;
     const tab = isLoginForm ? TabPanelValues.LoginForm : TabPanelValues.RegistrationForm;
 
     function toggleTabs(e: React.SyntheticEvent<Element, Event>, newTab: TabPanelValues) {
@@ -36,39 +36,52 @@ const AuthPage = () => {
                 </Tabs>
             </Box>
             <TabPanel value={tab} index={TabPanelValues.LoginForm}>
-                <FormGroup
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        margin: "0 auto",
-                        gap: { md: 3, xs: 2 },
-                        width: "85%",
-                        maxWidth: "450px",
-                        minHeight: "300px" /* Error */,
-                    }}
-                >
-                    <TextField type="email" label="Email" />
-                    <TextField type="password" label="Password" />
-                    <Button sx={{ alignSelf: "end" }}>Login</Button>
-                </FormGroup>
+                <form>
+                    <FormGroup
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            margin: "0 auto",
+                            gap: { md: 3, xs: 2 },
+                            width: "85%",
+                            maxWidth: "450px",
+                            minHeight: "300px" /* Error */,
+                        }}
+                    >
+                        <TextField type="email" label="Email" autoComplete="email" required />
+                        <TextField
+                            type="password"
+                            label="Password"
+                            autoComplete="current-password"
+                            required
+                        />
+                        <Button sx={{ alignSelf: "end" }} type="submit">
+                            Login
+                        </Button>
+                    </FormGroup>
+                </form>
             </TabPanel>
             <TabPanel value={tab} index={TabPanelValues.RegistrationForm}>
-                <FormGroup
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        margin: "0 auto",
-                        gap: { md: 3, xs: 2 },
-                        width: "85%",
-                        maxWidth: "450px",
-                        minHeight: "300px" /* Error */,
-                    }}
-                >
-                    <TextField label="Login" />
-                    <TextField type="email" label="Email" />
-                    <TextField type="password" label="Password" />
-                    <Button sx={{ alignSelf: "end" }}>Registration</Button>
-                </FormGroup>
+                <form>
+                    <FormGroup
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            margin: "0 auto",
+                            gap: { md: 3, xs: 2 },
+                            width: "85%",
+                            maxWidth: "450px",
+                            minHeight: "300px" /* Error */,
+                        }}
+                    >
+                        <TextField label="Login" autoComplete="username" required />
+                        <TextField type="email" label="Email" autoComplete="email" required />
+                        <TextField type="password" label="Password" autoComplete="new-password" required />
+                        <Button sx={{ alignSelf: "end" }} type="submit">
+                            Registration
+                        </Button>
+                    </FormGroup>
+                </form>
             </TabPanel>
         </Box>
     );

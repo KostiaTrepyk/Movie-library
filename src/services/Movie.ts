@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { MovieData } from "../models/MovieData";
+import { EpisodeData, FullMovieData, SearchMovieData, SeasonData } from "../models/MovieData";
 
 const apiKey = "187968b";
 
@@ -8,8 +8,29 @@ export const MovieApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "http://www.omdbapi.com/" }),
 
     endpoints: (builder) => ({
-        getMovieByTitle: builder.query<MovieData, string>({
-            query: (title) => `/?t=${title}&apikey=${apiKey}&plot=full`,
+        getMovieById: builder.query<FullMovieData, string>({
+            query: (title) => `/?i=${title}&apikey=${apiKey}&plot=full`,
+        }),
+
+        searchFilmByTitle: builder.query<
+            SearchMovieData,
+            { title?: string; year?: string; page: string | number; type?: string }
+        >({
+            query: (data) => {
+                const query = `/?s=${data.title || ""}&y=${data.year || ""}&type=${data?.type || ""}&page=${
+                    data.page
+                }&apikey=${apiKey}`;
+
+                return query;
+            },
+        }),
+
+        getSeason: builder.query<SeasonData, { movieId: string; season: number | string }>({
+            query: ({ movieId, season }) => `/?i=${movieId}&Season=${season}&apikey=${apiKey}`,
+        }),
+
+        getEpisode: builder.query<EpisodeData, string>({
+            query: (episodId) => `/?i=${episodId}&apikey=${apiKey}`,
         }),
     }),
 });

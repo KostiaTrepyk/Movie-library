@@ -5,15 +5,25 @@ import HomeIcon from "@mui/icons-material/Home";
 import LoginIcon from "@mui/icons-material/Login";
 import ShieldIcon from "@mui/icons-material/Shield";
 import PersonIcon from "@mui/icons-material/Person";
+import SearchIcon from "@mui/icons-material/Search";
+import DescriptionIcon from "@mui/icons-material/Description";
 
 /* Pages lazy import */
 const HomePage = lazy(() => import("../../../pages/HomePage/HomePage"));
 const AuthPage = lazy(() => import("../../../pages/AuthPage/AuthPage"));
-const MoviePage = lazy(() => import("../../../pages/MoviePage/MoviePage"));
+const DescriptionPage = lazy(() => import("../../../pages/DescriptionPage/DescriptionPage"));
 const ProfilePage = lazy(() => import("../../../pages/ProfilePage/ProfilePage"));
+const SearchPage = lazy(() => import("../../../pages/SearchPage/SearchPage"));
+const SeriesEpisodePage = lazy(() => import("../../../pages/SeriesEpisodePage/SeriesEpisodePage"));
 
 /* Pathes */
-type PublicPathes = "/" | "/login" | "/registration" | "/movie/:title" | "/movie/id/:id";
+type PublicPathes =
+    | "/"
+    | "/login"
+    | "/registration"
+    | "/search"
+    | "/description/:id"
+    | "/description/:id/:episodeId";
 type PrivatePathes = "/profile";
 
 /* Routes */
@@ -53,12 +63,12 @@ export const REGISTRATIONROUTE: PublicRoute = {
     element: AuthPage,
     icon: <ShieldIcon />,
 };
-export const MOVIEROUTE: PublicRoute = {
+export const DESCRIPTIONROUTE: PublicRoute = {
     id: 4,
-    name: "Movie",
-    path: "/movie/:title",
-    element: MoviePage,
-    icon: <>Icon</>,
+    name: "Description",
+    path: "/description/:id",
+    element: DescriptionPage,
+    icon: <DescriptionIcon />,
 };
 export const PROFILEROUTE: PrivateRoute = {
     id: 5,
@@ -67,8 +77,29 @@ export const PROFILEROUTE: PrivateRoute = {
     element: ProfilePage,
     icon: <PersonIcon />,
 };
+export const SEARCHROUTE: PublicRoute = {
+    id: 6,
+    name: "Search",
+    path: "/search",
+    element: SearchPage,
+    icon: <SearchIcon />,
+};
+export const SERIESEPISODEROUTE: PublicRoute = {
+    id: 7,
+    name: "Episode",
+    path: "/description/:id/:episodeId",
+    element: SeriesEpisodePage,
+    icon: <SearchIcon />,
+};
 
-export const publicRoutes: PublicRoute[] = [HOMEROUTE, LOGINROUTE, REGISTRATIONROUTE, MOVIEROUTE];
+export const publicRoutes: PublicRoute[] = [
+    HOMEROUTE,
+    LOGINROUTE,
+    REGISTRATIONROUTE,
+    DESCRIPTIONROUTE,
+    SEARCHROUTE,
+    SERIESEPISODEROUTE,
+];
 export const privateRoutes: PrivateRoute[] = [PROFILEROUTE];
 
 /** export only */

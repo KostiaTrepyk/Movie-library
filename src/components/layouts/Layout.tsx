@@ -11,6 +11,7 @@ const Layout = () => {
             <Paper
                 elevation={1}
                 sx={{
+                    boxSizing: "border-box",
                     borderRadius: 0,
                     minHeight: `calc(100vh - 64px)`,
                     mt: `64px`,

@@ -1,64 +1,70 @@
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Box, IconButton, Button } from "@mui/material";
 import {
     HOMEROUTE,
     LOGINROUTE,
-    MOVIEROUTE,
     PROFILEROUTE,
     REGISTRATIONROUTE,
     Route,
+    SEARCHROUTE,
 } from "../../../../../core/Router/utils/routes";
 import { useToggle } from "../../../../../core/hooks/useToggle";
+
 import Drawer from "./Drawer";
 import Avatar from "./Avatar";
+import SearchInput from "./SearchInput";
 
 /* Icons */
 import LogoIcon from "@mui/icons-material/MovieFilter";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import SearchInput from "./SearchInput";
-import { useState } from "react";
-import { useTheme } from "@emotion/react";
+import CloseIcon from "@mui/icons-material/Close";
 
 /* NavbarRoutes. Max 5. Don't add private routes.*/
-const navbarRoutes: Route[] = [HOMEROUTE, LOGINROUTE, REGISTRATIONROUTE, PROFILEROUTE];
+const navbarRoutes: Route[] = [SEARCHROUTE, LOGINROUTE, REGISTRATIONROUTE, PROFILEROUTE];
 
 const Navbar = () => {
     const [query, setQuery] = useState<string>("");
+    const [isSearchInpOpened, setIsSearchInpOpened] = useState<boolean>(false);
     const [isDrawerOpened, toggleDrawer] = useToggle();
-    const [isSearchInpOpened, toggleSearchInp] = useToggle();
+
+    const serachInpRef = useRef<HTMLInputElement>(null);
 
     const navigate = useNavigate();
-    const theme = useTheme() as any;
 
     function navigateToHome() {
         navigate(HOMEROUTE.path);
     }
 
-    function toggleSearchInpHandler() {
-        const windowWidth = window.innerWidth;
-        const mobileMaxWidth = theme?.breakpoints?.values?.sm;
-        if (windowWidth >= mobileMaxWidth) {
-        } else {
-            toggleSearchInp();
-        }
-    }
+    function SearchBtnClickHanlder(e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+        e?.stopPropagation();
 
-    function SearchBtnClickHanlder() {
+        /* Submit */
         if (Boolean(query)) {
             /* Search */
             SearchSubmitHanlder();
-        } else {
-            /* Open-Close */
-            toggleSearchInpHandler();
+            return;
         }
+
+        /* Open */
+        if (!isSearchInpOpened) {
+            setIsSearchInpOpened(() => true);
+            serachInpRef.current?.focus();
+            return;
+        }
+
+        /* Close */
+        setIsSearchInpOpened(() => false);
     }
 
     function SearchSubmitHanlder(e?: React.FormEvent<HTMLFormElement>) {
         e && e.preventDefault();
-        const path = MOVIEROUTE.path.replace(":title", query);
+        const path = SEARCHROUTE.path + `/?title=${query}`;
         navigate(path);
-        toggleSearchInpHandler();
+
+        /* Close input */
+        setIsSearchInpOpened(false);
         setQuery(() => "");
     }
 
@@ -79,12 +85,13 @@ const Navbar = () => {
                             <MenuIcon />
                         </IconButton>
                     </Box>
-                    {/* Logo PC or Tablet */}
+
+                    {/* Logo */}
                     <Box
                         sx={{
-                            display: { sm: "flex", xs: "none" } /* !!! */,
+                            display: { sm: "flex", xs: isSearchInpOpened ? "none" : "flex" },
                             alignItems: "center",
-                            mr: 2,
+                            justifyContent: "start",
                             flexGrow: { lg: 0, xs: 1 },
                         }}
                     >
@@ -107,7 +114,7 @@ const Navbar = () => {
                     </Box>
 
                     {/* PC Links */}
-                    <Box sx={{ flexGrow: 1, display: { lg: "flex", xs: "none" } }}>
+                    <Box sx={{ display: { lg: "flex", xs: "none" }, ml: 2 }}>
                         {navbarRoutes.map((route) => (
                             <Button
                                 key={route.id}
@@ -121,74 +128,42 @@ const Navbar = () => {
                         ))}
                     </Box>
 
-                    {/* Logo Mobile */}
+                    {/* Controlls */}
                     <Box
                         sx={{
-                            display: { sm: "none", xs: "flex" } /* !!! */,
-                            alignItems: "center",
-                            justifyContent: "center",
-                            flexGrow: { lg: 0, xs: 1 },
+                            display: "flex",
+                            gap: { sm: 2, xs: 1 },
+                            justifyContent: "end",
+                            flexGrow: 1,
                         }}
                     >
-                        {!isSearchInpOpened && (
-                            <>
-                                <LogoIcon sx={{ mr: 1 }} />
-                                <Typography
-                                    variant="h6"
-                                    noWrap
-                                    onClick={navigateToHome}
-                                    sx={{
-                                        display: "flex",
-                                        fontFamily: "monospace",
-                                        fontWeight: 700,
-                                        letterSpacing: ".3rem",
-                                        color: "inherit",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    YMovies
-                                </Typography>
-                            </>
-                        )}
-
-                        {/* Serach input Mobile*/}
-                        <Box
-                            component={"form"}
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                flexGrow: isSearchInpOpened ? 1 : 0,
-                            }}
-                            onSubmit={SearchSubmitHanlder}
-                        >
-                            <SearchInput
-                                open={isSearchInpOpened}
-                                type="search"
-                                value={query}
-                                onChange={(e) => setQuery(() => e.target.value)}
-                            />
-                        </Box>
-                    </Box>
-
-                    <Box sx={{ display: "flex", gap: { sm: 2, xs: 1 }, justifyContent: "end" }}>
                         {/* Serach input PC*/}
                         <Box
+                            sx={{ display: "flex", gap: "inherit", width: { sm: "auto", xs: "100%" } }}
                             component={"form"}
-                            sx={{ display: { sm: "block", xs: "none" } }}
                             onSubmit={SearchSubmitHanlder}
                         >
-                            <SearchInput
-                                open={true}
-                                type="search"
-                                value={query}
-                                onChange={(e) => setQuery(() => e.target.value)}
-                            />
-                        </Box>
+                            <Box
+                                sx={{
+                                    display: isSearchInpOpened ? "flex" : "hidden",
+                                    justifyContent: "center",
+                                    width: "100%",
+                                }}
+                            >
+                                <SearchInput
+                                    open={isSearchInpOpened}
+                                    type="search"
+                                    value={query}
+                                    onChange={(e) => setQuery(() => e.target.value)}
+                                    ref={serachInpRef}
+                                />
+                            </Box>
 
-                        {/* SearchBtn */}
-                        <IconButton onClick={SearchBtnClickHanlder}>
-                            <SearchIcon />
-                        </IconButton>
+                            {/* SearchBtn */}
+                            <IconButton onClick={SearchBtnClickHanlder}>
+                                {Boolean(query) || !isSearchInpOpened ? <SearchIcon /> : <CloseIcon />}
+                            </IconButton>
+                        </Box>
 
                         {/* Avatar */}
                         <Avatar />

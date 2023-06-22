@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import { MovieApi } from "../../services/Movie";
 import {
     Box,
@@ -10,39 +11,42 @@ import {
     TableRow,
     Typography,
 } from "@mui/material";
-import { Fragment } from "react";
-import { useParams } from "react-router-dom";
+import { Fragment, useLayoutEffect } from "react";
 
-type Params = {
-    title: string;
-};
+/* is not used */
+const SeriesEpisodePage = () => {
+    const params = useParams<{ episodeId: string }>();
 
-const FilmPage = () => {
-    const params = useParams<Params>();
+    useLayoutEffect(() => {
+        window.scrollTo({ top: 0 });
+    }, []);
 
-    const { data, isLoading, isSuccess, isError, error } = MovieApi.useGetMovieByTitleQuery(
-        params.title || "",
-        {}
-    );
+    const { currentData, isError } = MovieApi.useGetEpisodeQuery(params.episodeId || "");
 
     const tableData = [
-        { name: "Released:", value: data?.Released },
-        { name: "Actors:", value: data?.Actors },
-        { name: "Language", value: data?.Language },
-        { name: "Genre", value: data?.Genre },
-        { name: "Awards", value: data?.Awards },
-        { name: "Rated", value: data?.Rated },
-        { name: "Director", value: data?.Director },
-        { name: "Country", value: data?.Country },
-        { name: "Total seasons", value: data?.totalSeasons },
-        { name: "Writer", value: data?.Writer },
+        { name: "Released:", value: currentData?.Released },
+        { name: "Country", value: currentData?.Country },
+        { name: "Language", value: currentData?.Language },
+        { name: "Genre", value: currentData?.Genre },
+        { name: "Director", value: currentData?.Director },
+        { name: "Writer", value: currentData?.Writer },
+        { name: "Actors:", value: currentData?.Actors },
+        { name: "Rated", value: currentData?.Rated },
+        { name: "Awards", value: currentData?.Awards },
     ];
 
+    if (isError) {
+        return <Typography align="center">Error</Typography>;
+    }
+
+    if (!currentData) {
+        return <LinearProgress />;
+    }
+
     return (
-        <>
-            {isLoading && <LinearProgress />}
-            {isSuccess && (
-                <Container maxWidth={"lg"} sx={{ px: { md: 2, sm: 1, xs: 2 }, pt: 2, pb: 3 }} disableGutters>
+        <Container maxWidth="xl" sx={{ pt: 2, pb: 3 }}>
+            {currentData?.Response === "True" && (
+                <Box>
                     {/* Title */}
                     <Typography
                         variant="h4"
@@ -52,12 +56,12 @@ const FilmPage = () => {
                             mb: 2,
                         }}
                     >
-                        {data?.Title || "Title"} ({data?.Year || "year"})
+                        {currentData?.Title || "Title"} ({currentData?.Year || "year"})
                     </Typography>
                     <Box
                         sx={{
                             display: "flex",
-                            flexDirection: { sm: "row", xs: "column" },
+                            flexDirection: { md: "row", xs: "column" },
                             gap: 2,
                             mb: { sm: 2, xs: 0 },
                             flexGrow: 1,
@@ -66,14 +70,13 @@ const FilmPage = () => {
                         <img
                             style={{
                                 width: "min(100%, 400px)",
-                                height: "0%",
-                                minHeight: "300px",
-                                objectFit: "cover",
+                                height: "fit-content",
+                                objectFit: "contain",
                                 borderRadius: "8px",
                                 margin: "0 auto",
                             }}
-                            src={data?.Poster}
-                            alt={data?.Title}
+                            src={currentData?.Poster}
+                            alt={currentData?.Title}
                             loading="lazy"
                         />
 
@@ -112,16 +115,15 @@ const FilmPage = () => {
                     </Box>
 
                     {/* Plot */}
-                    {data?.Plot && data.Plot !== "N/A" && (
+                    {currentData?.Plot && currentData.Plot !== "N/A" && (
                         <Box>
-                            <Typography variant="body1">Storyline: {data.Plot}</Typography>
+                            <Typography variant="body1">Storyline: {currentData.Plot}</Typography>
                         </Box>
                     )}
-                </Container>
+                </Box>
             )}
-            {isError && <>{error}</>}
-        </>
+        </Container>
     );
 };
 
-export default FilmPage;
+export default SeriesEpisodePage;
