@@ -28,8 +28,16 @@ export type FullMovieData = {
 
 export type SearchMovieData = {
     Response: "True" | "False";
-    Search?: { Title: string; Year: string; Type: string; Poster: string; imdbID: string }[];
+    Search?: ShortMovieData[];
     totalResults: string;
+};
+
+export type ShortMovieData = {
+    Title: string;
+    Year: string;
+    Type: string;
+    Poster: string;
+    imdbID: string;
 };
 
 export type SeasonData = {

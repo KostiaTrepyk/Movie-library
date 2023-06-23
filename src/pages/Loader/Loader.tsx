@@ -9,7 +9,7 @@ const Loader = () => {
         return () => {
             window.scrollTo({ top: scrollTop });
         };
-    }, []);
+    }, [scrollTop]);
 
     return <LinearProgress />;
 };

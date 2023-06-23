@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import MovieDescription from "../../modules/MovieDescriptionModule/MovieDescription.module";
+import MovieDescriptionModule from "../../modules/MovieDescriptionModule/MovieDescription.module";
 import { Container, LinearProgress, Stack, Typography } from "@mui/material";
 import { MovieApi } from "../../services/Movie";
 import SeasonDescriptionModule from "../../modules/SeasonDescriptionModule/SeasonDescription.module";
@@ -29,7 +29,7 @@ const FilmPage = () => {
     return (
         <Container maxWidth={"xl"} sx={{ px: { md: 2, sm: 1, xs: 2 }, pt: 2, pb: 3 }} disableGutters>
             <Stack spacing={8}>
-                <MovieDescription movieId={params.id || ""} />
+                <MovieDescriptionModule movieId={params.id || ""} />
 
                 {MovieData.currentData?.Type === "series" && (
                     <SeasonDescriptionModule movieId={params.id || ""} />

@@ -10,13 +10,14 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { SEARCHROUTE } from "../../core/Router/utils/routes";
+import { objToSearchParams } from "../../helpers/objToSearchParams";
 
 /* Icons */
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { objToQuery } from "./helpers/objToQuery";
-import { SEARCHROUTE } from "../../core/Router/utils/routes";
+import ClearIcon from "@mui/icons-material/Clear";
 
 type Props = {
     isLoading?: boolean;
@@ -33,7 +34,7 @@ const SearchModule = ({ isLoading }: Props) => {
         e.preventDefault();
         if (title.length === 0) return;
 
-        const query = objToQuery({ title: title.trim(), year, type });
+        const query = objToSearchParams({ title: title.trim().toLowerCase(), year, type });
         navigate(SEARCHROUTE.path + "/" + query);
     }
 
@@ -68,13 +69,29 @@ const SearchModule = ({ isLoading }: Props) => {
                     Let's find some Movies
                 </Typography>
 
+                {/* Title input */}
                 <TextField
-                    type="search"
                     label="Title"
-                    value={title}
-                    onChange={(e) => setTitle(() => e.target.value)}
-                    autoComplete="off"
-                    disabled={isLoading}
+                    InputProps={{
+                        onChange: (e) => setTitle(() => e.target.value),
+                        value: title,
+                        autoComplete: "off",
+                        disabled: isLoading,
+                        inputMode: "search",
+                        endAdornment: Boolean(title) && (
+                            <IconButton
+                                onClick={() => {
+                                    setTitle(() => "");
+                                }}
+                            >
+                                <ClearIcon />
+                            </IconButton>
+                        ),
+                    }}
+                    inputProps={{
+                        pattern: ".{3,}",
+                        title: "Three or more characters.",
+                    }}
                 ></TextField>
 
                 <Box
@@ -85,15 +102,24 @@ const SearchModule = ({ isLoading }: Props) => {
                         justifyContent: "center",
                     }}
                 >
+                    {/* Year input */}
                     <TextField
                         label="Year"
-                        type="number"
-                        value={year}
-                        onChange={(e) => setYear(() => e.target.value.toString())}
                         sx={{ flexGrow: 1 }}
-                        autoComplete="off"
-                        disabled={isLoading}
+                        InputProps={{
+                            inputMode: "numeric",
+                            onChange: (e) => setYear(() => e.target.value),
+                            value: year,
+                            autoComplete: "off",
+                            disabled: isLoading,
+                        }}
+                        inputProps={{
+                            pattern: "[0-9]{4}",
+                            title: "Check the year.",
+                        }}
                     ></TextField>
+
+                    {/* Type input */}
                     <FormControl sx={{ flexGrow: 2, minWidth: "90px" }} disabled={isLoading}>
                         <InputLabel>Type</InputLabel>
                         <Select
@@ -105,10 +131,10 @@ const SearchModule = ({ isLoading }: Props) => {
                             <MenuItem value={""}>Empty</MenuItem>
                             <MenuItem value={"movie"}>Movie</MenuItem>
                             <MenuItem value={"series"}>Series</MenuItem>
-                            <MenuItem value={"episode"}>Episode</MenuItem>
                         </Select>
                     </FormControl>
 
+                    {/* SubmitBtn */}
                     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                         <IconButton size="large" type="submit" disabled={isLoading}>
                             <SearchIcon />

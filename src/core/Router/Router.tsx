@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter, ScrollRestoration } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { privateRoutes, publicRoutes } from "./utils/routes";
 import PageNotFound from "../../pages/PageNotFound/PageNotFound";
 import Layout from "../../components/layouts/Layout";

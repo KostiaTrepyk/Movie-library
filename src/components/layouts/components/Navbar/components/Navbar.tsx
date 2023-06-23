@@ -1,28 +1,21 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppBar, Toolbar, Typography, Box, IconButton, Button } from "@mui/material";
-import {
-    HOMEROUTE,
-    LOGINROUTE,
-    PROFILEROUTE,
-    REGISTRATIONROUTE,
-    Route,
-    SEARCHROUTE,
-} from "../../../../../core/Router/utils/routes";
+import { AppBar, Toolbar, Typography, Box, IconButton, Button, TextField } from "@mui/material";
+import { HOMEROUTE, Route, SEARCHROUTE } from "../../../../../core/Router/utils/routes";
 import { useToggle } from "../../../../../core/hooks/useToggle";
 
 import Drawer from "./Drawer";
 import Avatar from "./Avatar";
-import SearchInput from "./SearchInput";
 
 /* Icons */
 import LogoIcon from "@mui/icons-material/MovieFilter";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import ClearIcon from "@mui/icons-material/Clear";
 import CloseIcon from "@mui/icons-material/Close";
 
 /* NavbarRoutes. Max 5. Don't add private routes.*/
-const navbarRoutes: Route[] = [SEARCHROUTE, LOGINROUTE, REGISTRATIONROUTE, PROFILEROUTE];
+const navbarRoutes: Route[] = [SEARCHROUTE];
 
 const Navbar = () => {
     const [query, setQuery] = useState<string>("");
@@ -30,6 +23,7 @@ const Navbar = () => {
     const [isDrawerOpened, toggleDrawer] = useToggle();
 
     const serachInpRef = useRef<HTMLInputElement>(null);
+    const searchFromRef = useRef<HTMLFormElement>(null);
 
     const navigate = useNavigate();
 
@@ -43,7 +37,8 @@ const Navbar = () => {
         /* Submit */
         if (Boolean(query)) {
             /* Search */
-            SearchSubmitHanlder();
+
+            searchFromRef.current?.requestSubmit();
             return;
         }
 
@@ -60,7 +55,7 @@ const Navbar = () => {
 
     function SearchSubmitHanlder(e?: React.FormEvent<HTMLFormElement>) {
         e && e.preventDefault();
-        const path = SEARCHROUTE.path + `/?title=${query}`;
+        const path = SEARCHROUTE.path + `/?title=${query.toLocaleLowerCase()}`;
         navigate(path);
 
         /* Close input */
@@ -142,6 +137,7 @@ const Navbar = () => {
                             sx={{ display: "flex", gap: "inherit", width: { sm: "auto", xs: "100%" } }}
                             component={"form"}
                             onSubmit={SearchSubmitHanlder}
+                            ref={searchFromRef}
                         >
                             <Box
                                 sx={{
@@ -150,12 +146,32 @@ const Navbar = () => {
                                     width: "100%",
                                 }}
                             >
-                                <SearchInput
-                                    open={isSearchInpOpened}
-                                    type="search"
-                                    value={query}
-                                    onChange={(e) => setQuery(() => e.target.value)}
+                                {/* Search input */}
+                                <TextField
+                                    sx={{ display: isSearchInpOpened ? "inline" : "none", width: "100%" }}
+                                    fullWidth
                                     ref={serachInpRef}
+                                    InputProps={{
+                                        inputMode: "search",
+                                        size: "small",
+                                        value: query,
+                                        onChange: (e) => setQuery(() => e.target.value),
+                                        endAdornment: Boolean(query) && (
+                                            <IconButton
+                                                size="small"
+                                                sx={{ m: 0, p: 0.1 }}
+                                                onClick={() => {
+                                                    setQuery(() => "");
+                                                }}
+                                            >
+                                                <ClearIcon />
+                                            </IconButton>
+                                        ),
+                                    }}
+                                    inputProps={{
+                                        pattern: ".{3,}",
+                                        title: "Three or more characters",
+                                    }}
                                 />
                             </Box>
 

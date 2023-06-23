@@ -5,11 +5,11 @@ const apiKey = "187968b";
 
 export const MovieApi = createApi({
     reducerPath: "MovieApi",
-    baseQuery: fetchBaseQuery({ baseUrl: "http://www.omdbapi.com/" }),
+    baseQuery: fetchBaseQuery({ baseUrl: "http://www.omdbapi.com" }),
 
     endpoints: (builder) => ({
         getMovieById: builder.query<FullMovieData, string>({
-            query: (title) => `/?i=${title}&apikey=${apiKey}&plot=full`,
+            query: (title) => `/?i=${title}&plot=full&apikey=${apiKey}`,
         }),
 
         searchFilmByTitle: builder.query<

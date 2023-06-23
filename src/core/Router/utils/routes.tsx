@@ -14,7 +14,7 @@ const AuthPage = lazy(() => import("../../../pages/AuthPage/AuthPage"));
 const DescriptionPage = lazy(() => import("../../../pages/DescriptionPage/DescriptionPage"));
 const ProfilePage = lazy(() => import("../../../pages/ProfilePage/ProfilePage"));
 const SearchPage = lazy(() => import("../../../pages/SearchPage/SearchPage"));
-const SeriesEpisodePage = lazy(() => import("../../../pages/SeriesEpisodePage/SeriesEpisodePage"));
+const SeriesEpisodePage = lazy(() => import("../../../pages/EpisodePage/EpisodePage"));
 
 /* Pathes */
 type PublicPathes =
