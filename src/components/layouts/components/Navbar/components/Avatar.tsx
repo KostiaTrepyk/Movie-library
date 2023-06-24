@@ -73,7 +73,7 @@ const Avatar: React.FC = () => {
         navigate(PROFILEROUTE.path);
     }
     function onLogoutSettingClick() {
-        dispatch(AuthActions.logout);
+        dispatch(AuthActions.logout());
         handleCloseUserMenu();
         navigate(LOGINROUTE.path);
     }
