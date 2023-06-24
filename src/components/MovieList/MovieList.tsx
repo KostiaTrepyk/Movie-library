@@ -1,13 +1,14 @@
 import { Box } from "@mui/material";
 import { ShortMovieData } from "../../models/MovieData";
+
 import MovieItem from "./components/MovieItem";
 
-type Props = {
+interface MovieListProps {
     movies: ShortMovieData[];
     onMovieClick: (movieID: string) => void;
-};
+}
 
-const MovieList = ({ movies, onMovieClick }: Props) => {
+const MovieList: React.FC<MovieListProps> = ({ movies, onMovieClick }) => {
     return (
         <Box
             sx={{

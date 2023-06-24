@@ -7,7 +7,7 @@ import EpisodeDescriptionModule from "../../modules/EpisodeDescriptionModule/Epi
 /* Icons */
 import ArrowBackIcon from "@mui/icons-material/ArrowBackIosNew";
 
-const SeriesEpisodePage = () => {
+const SeriesEpisodePage: React.FC = () => {
     const params = useParams<{ episodeId: string }>();
 
     useLayoutEffect(() => {

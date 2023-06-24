@@ -1,4 +1,4 @@
-export type FullMovieData = {
+export interface FullMovieData {
     Actors: string;
     Awards: string;
     Country: string;
@@ -24,23 +24,23 @@ export type FullMovieData = {
     imdbRating: string;
     imdbVotes: string;
     totalSeasons: string;
-};
+}
 
-export type SearchMovieData = {
+export interface SearchMovieData {
     Response: "True" | "False";
     Search?: ShortMovieData[];
     totalResults: string;
-};
+}
 
-export type ShortMovieData = {
+export interface ShortMovieData {
     Title: string;
     Year: string;
     Type: string;
     Poster: string;
     imdbID: string;
-};
+}
 
-export type SeasonData = {
+export interface SeasonData {
     Title: string;
     Season: string;
     Response: "False" | "True";
@@ -52,9 +52,9 @@ export type SeasonData = {
         imdbRating: string;
         imdbID: string;
     }[];
-};
+}
 
-export type EpisodeData = {
+export interface EpisodeData {
     Actors: string;
     Awards: string;
     Country: string;
@@ -82,4 +82,4 @@ export type EpisodeData = {
     imdbRating: string;
     imdbVotes: string;
     seriesID: string;
-};
+}

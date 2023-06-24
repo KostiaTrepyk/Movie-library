@@ -9,7 +9,7 @@ type Params = {
     id: string;
 };
 
-const FilmPage = () => {
+const FilmPage: React.FC = () => {
     const params = useParams<Params>();
 
     const MovieData = MovieApi.useGetMovieByIdQuery(params.id || "", {});

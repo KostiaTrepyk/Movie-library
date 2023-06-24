@@ -2,7 +2,7 @@ import { Container } from "@mui/material";
 
 import AuthFormModule from "../../modules/AuthFormModule/AuthForm.module";
 
-const AuthPage = () => {
+const AuthPage: React.FC = () => {
     return (
         <Container
             maxWidth="xl"

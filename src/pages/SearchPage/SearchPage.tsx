@@ -14,7 +14,7 @@ type Query = {
     page?: string;
 };
 
-const SearchPage = () => {
+const SearchPage: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const query: Query = getObjFromSearchParams(location.search);

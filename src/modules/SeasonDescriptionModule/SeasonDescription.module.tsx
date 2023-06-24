@@ -11,15 +11,15 @@ import {
 } from "@mui/material";
 import { MovieApi } from "../../services/Movie";
 import { useState } from "react";
-import Error from "./components/Error";
 import { useNavigate } from "react-router-dom";
 import { SERIESEPISODEROUTE } from "../../core/Router/utils/routes";
+import Error from "./components/Error";
 
-type Props = {
+interface SeasonDescriptionModuleProps {
     movieId: string;
-};
+}
 
-const SeasonDescription = ({ movieId }: Props) => {
+const SeasonDescriptionModule: React.FC<SeasonDescriptionModuleProps> = ({ movieId }) => {
     const [season, setSeason] = useState<number>(1);
     const { currentData, data, isError } = MovieApi.useGetSeasonQuery({ movieId, season }, {});
 
@@ -43,7 +43,7 @@ const SeasonDescription = ({ movieId }: Props) => {
                 <FormControl fullWidth disabled={!currentData} sx={{ width: "70%", maxWidth: "490px" }}>
                     <InputLabel>Season</InputLabel>
                     <Select value={season} label="Season" onChange={changeSeasonHandler}>
-                        {data ? (
+                        {data?.Episodes && data.Episodes.length > 0 ? (
                             createMenuItems(Number(data?.totalSeasons))
                         ) : (
                             <MenuItem value={1}>1</MenuItem>
@@ -102,7 +102,7 @@ const SeasonDescription = ({ movieId }: Props) => {
     );
 };
 
-export default SeasonDescription;
+export default SeasonDescriptionModule;
 
 function createMenuItems(count: number): JSX.Element[] {
     const result: JSX.Element[] = [];

@@ -1,7 +1,7 @@
 import { LinearProgress } from "@mui/material";
 import { useLayoutEffect } from "react";
 
-const Loader = () => {
+const Loader: React.FC = () => {
     const scrollTop = document.documentElement.scrollTop;
 
     useLayoutEffect(() => {

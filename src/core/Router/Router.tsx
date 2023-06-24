@@ -1,12 +1,13 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { privateRoutes, publicRoutes } from "./utils/routes";
-import PageNotFound from "../../pages/PageNotFound/PageNotFound";
-import Layout from "../../components/layouts/Layout";
 import { Suspense } from "react";
-import Loader from "../../pages/Loader/Loader";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { useAppSelector } from "../hooks/useAppSelector";
+import { privateRoutes, publicRoutes } from "./utils/routes";
 
-const Router = () => {
+import Layout from "../../components/layouts/Layout";
+import Loader from "../../pages/Loader/Loader";
+import PageNotFound from "../../pages/PageNotFound/PageNotFound";
+
+const Router: React.FC = () => {
     const isAuth = useAppSelector((state) => state.auth.isAuth);
 
     return (

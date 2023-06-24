@@ -19,11 +19,11 @@ import { objToSearchParams } from "../../helpers/objToSearchParams";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 
-type Props = {
+interface SearchModuleProps {
     isLoading?: boolean;
-};
+}
 
-const SearchModule = ({ isLoading }: Props) => {
+const SearchModule: React.FC<SearchModuleProps> = ({ isLoading }) => {
     const [title, setTitle] = useState<string>("");
     const [year, setYear] = useState<string>("");
     const [type, setType] = useState<string>("");

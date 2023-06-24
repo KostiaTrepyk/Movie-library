@@ -1,20 +1,12 @@
 import { MovieApi } from "../../services/Movie";
-import {
-    Box,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableRow,
-    Typography,
-} from "@mui/material";
-import { Fragment } from "react";
+import { Box, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
+import React, { Fragment } from "react";
 
-type Props = {
+interface MovieDescriptionModuleProps {
     movieId: string;
-};
+}
 
-const MovieDescription = ({ movieId }: Props) => {
+const MovieDescriptionModule: React.FC<MovieDescriptionModuleProps> = ({ movieId }) => {
     const { data, isError } = MovieApi.useGetMovieByIdQuery(movieId, {});
 
     const tableData = [
@@ -114,4 +106,4 @@ const MovieDescription = ({ movieId }: Props) => {
     );
 };
 
-export default MovieDescription;
+export default MovieDescriptionModule;

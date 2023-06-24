@@ -4,7 +4,7 @@ import { AppBar, Toolbar, Typography, Box, IconButton, Button, TextField } from 
 import { HOMEROUTE, Route, SEARCHROUTE } from "../../../../../core/Router/utils/routes";
 import { useToggle } from "../../../../../core/hooks/useToggle";
 
-import Drawer from "./Drawer";
+import SideBar from "./SideBar";
 import Avatar from "./Avatar";
 
 /* Icons */
@@ -14,10 +14,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import CloseIcon from "@mui/icons-material/Close";
 
-/* NavbarRoutes. Max 5. Don't add private routes.*/
+/** NavbarRoutes. Don't add private routes.*/
 const navbarRoutes: Route[] = [SEARCHROUTE];
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
     const [query, setQuery] = useState<string>("");
     const [isSearchInpOpened, setIsSearchInpOpened] = useState<boolean>(false);
     const [isDrawerOpened, toggleDrawer] = useToggle();
@@ -186,8 +186,8 @@ const Navbar = () => {
                     </Box>
                 </Toolbar>
 
-                {/* Drawer */}
-                <Drawer
+                {/* SideBar */}
+                <SideBar
                     routes={navbarRoutes}
                     open={isDrawerOpened}
                     onOpen={toggleDrawer}

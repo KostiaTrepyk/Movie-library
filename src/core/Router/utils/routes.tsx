@@ -31,14 +31,14 @@ type PublicRoute = {
     id: number;
     name: string;
     path: PublicPathes;
-    element: React.LazyExoticComponent<() => JSX.Element>;
+    element: React.LazyExoticComponent<React.FC>;
     icon: JSX.Element;
 };
 type PrivateRoute = {
     id: number;
     name: string;
     path: PrivatePathes;
-    element: React.LazyExoticComponent<() => JSX.Element>;
+    element: React.LazyExoticComponent<React.FC>;
     icon: JSX.Element;
 };
 

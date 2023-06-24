@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
     Box,
     Divider,
@@ -10,20 +11,19 @@ import {
     Typography,
 } from "@mui/material";
 import { Route } from "../../../../../core/Router/utils/routes";
-import { useNavigate } from "react-router-dom";
 
 /* Icons */
 import LogoIcon from "@mui/icons-material/MovieFilter";
 import CloseIcon from "@mui/icons-material/Close";
 
-type Props = {
+interface SideBarProps {
     routes: Route[];
     open: boolean;
     onOpen: (e?: React.SyntheticEvent<{}, Event>) => void;
     onClose: (e?: React.SyntheticEvent<{}, Event>) => void;
-};
+}
 
-const Drawer = ({ routes, open, onOpen, onClose }: Props) => {
+const SideBar: React.FC<SideBarProps> = ({ routes, open, onOpen, onClose }) => {
     const navigate = useNavigate();
 
     function LinkClickHandler(path: string) {
@@ -81,4 +81,4 @@ const Drawer = ({ routes, open, onOpen, onClose }: Props) => {
     );
 };
 
-export default Drawer;
+export default SideBar;

@@ -2,11 +2,11 @@ import { Box, Table, TableBody, TableCell, TableContainer, TableRow, Typography 
 import { Fragment } from "react";
 import { MovieApi } from "../../services/Movie";
 
-type Props = {
+interface EpisodeDescriptionModuleProps {
     episodeId: string;
-};
+}
 
-const EpisodeDescriptionModule = ({ episodeId }: Props) => {
+const EpisodeDescriptionModule: React.FC<EpisodeDescriptionModuleProps> = ({ episodeId }) => {
     const { currentData } = MovieApi.useGetEpisodeQuery(episodeId);
 
     const tableData = [

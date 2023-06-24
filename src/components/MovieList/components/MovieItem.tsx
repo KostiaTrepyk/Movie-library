@@ -1,13 +1,13 @@
 import { Box, Typography } from "@mui/material";
-import { ShortMovieData } from "../../../models/MovieData";
 import { orange, grey } from "@mui/material/colors";
+import { ShortMovieData } from "../../../models/MovieData";
 
-type Props = {
+interface MovieItemProps {
     movieData: ShortMovieData;
     onClick: (moiveId: string) => void;
-};
+}
 
-const MovieItem = ({ movieData, onClick }: Props) => {
+const MovieItem: React.FC<MovieItemProps> = ({ movieData, onClick }) => {
     return (
         <Box
             key={movieData.imdbID}

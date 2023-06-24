@@ -1,11 +1,11 @@
 import { Box, Divider, Typography } from "@mui/material";
 
-const Footer = () => {
+const Footer: React.FC = () => {
     return (
         <>
             <Divider />
 
-            <Box sx={{padding: 3}}>
+            <Box sx={{ padding: 3 }}>
                 <Typography>Footer</Typography>
             </Box>
         </>

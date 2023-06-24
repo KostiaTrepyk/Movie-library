@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { HOMEROUTE } from "../../core/Router/utils/routes";
 
-const PageNotFound = () => {
+const PageNotFound: React.FC = () => {
     return (
         <>
             <h1>PageNotFound!</h1>

@@ -1,26 +1,17 @@
-import { FormGroup, TextField, Button } from "@mui/material";
 import { useState } from "react";
-import { useAppDispatch } from "../../../../core/hooks/useAppDispatch";
-import { AuthActions } from "../../../../redux/AuthSlice/AuthSlice";
-import { useNavigate } from "react-router-dom";
-import { HOMEROUTE } from "../../../../core/Router/utils/routes";
+import { FormGroup, TextField, Button } from "@mui/material";
 
-const LoginForm = () => {
+interface RegistrationFormProps {
+    onSubmit: (e: React.FormEvent<HTMLFormElement>, data: RegistrationFormData) => void;
+}
+
+const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSubmit }) => {
+    const [username, setUsername] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-
-    function formSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-
-        dispatch(AuthActions.login({ email, password }));
-        navigate(HOMEROUTE.path);
-    }
-
     return (
-        <form onSubmit={formSubmitHandler}>
+        <form onSubmit={(e) => onSubmit(e, { username, email, password })}>
             <FormGroup
                 sx={{
                     display: "flex",
@@ -28,6 +19,16 @@ const LoginForm = () => {
                     gap: { md: 3, xs: 2 },
                 }}
             >
+                <TextField
+                    label="Username"
+                    InputProps={{
+                        type: "text",
+                        required: true,
+                        autoComplete: "username",
+                        value: username,
+                        onChange: (e) => setUsername(() => e.target.value),
+                    }}
+                />
                 <TextField
                     label="Email"
                     InputProps={{
@@ -49,11 +50,17 @@ const LoginForm = () => {
                     }}
                 />
                 <Button sx={{ alignSelf: "end" }} type="submit" size="large">
-                    Login
+                    Registration
                 </Button>
             </FormGroup>
         </form>
     );
 };
 
-export default LoginForm;
+export default RegistrationForm;
+
+export interface RegistrationFormData {
+    username: string;
+    email: string;
+    password: string;
+}

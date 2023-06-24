@@ -1,7 +1,7 @@
-import { ThemeProvider, createTheme } from "@mui/material";
 import { PropsWithChildren } from "react";
+import { ThemeProvider, createTheme } from "@mui/material";
 
-const Theme = ({ children }: PropsWithChildren) => {
+const Theme: React.FC<PropsWithChildren> = ({ children }) => {
     const theme = createTheme({
         palette: {
             mode: "dark",

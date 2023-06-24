@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { LOGINROUTE, PROFILEROUTE, REGISTRATIONROUTE } from "../../../../../core/Router/utils/routes";
+import { useState } from "react";
+import { Box, IconButton, Menu, MenuItem, Typography, Avatar as AvatarMUI } from "@mui/material";
 import { useAppSelector } from "../../../../../core/hooks/useAppSelector";
 import { useAppDispatch } from "../../../../../core/hooks/useAppDispatch";
 import { AuthActions } from "../../../../../redux/AuthSlice/AuthSlice";
-import { useState } from "react";
-import { Box, IconButton, Menu, MenuItem, Typography, Avatar as AvatarMUI } from "@mui/material";
+import { LOGINROUTE, PROFILEROUTE, REGISTRATIONROUTE } from "../../../../../core/Router/utils/routes";
 
 /* Icons */
 import LoginIcon from "@mui/icons-material/Login";
@@ -21,7 +21,7 @@ type Setting = {
     icon: JSX.Element;
 };
 
-const Avatar = () => {
+const Avatar: React.FC = () => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const isAuth = useAppSelector((state) => state.auth.isAuth);
     const userData = useAppSelector((state) => state.auth.userData);
