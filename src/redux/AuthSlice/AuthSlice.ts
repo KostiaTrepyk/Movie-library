@@ -16,19 +16,25 @@ const AuthSlice = createSlice({
     reducers: {
         /* Fix me */
         registration(state, action: PayloadAction<{ username: string; email: string; password: string }>) {
+            const { username, email } = action.payload;
+
             state.userData = {
                 id: 0,
-                username: action.payload.username,
-                email: action.payload.email,
+                username,
+                email,
             };
+            state.isAuth = true;
         },
         /* Fix me */
         login(state, action: PayloadAction<{ email: string; password: string }>) {
+            const { email } = action.payload;
+
             state.userData = {
                 id: 0,
                 username: "User",
-                email: action.payload.email,
+                email,
             };
+            state.isAuth = true;
         },
         logout(state) {
             state.userData = null;
