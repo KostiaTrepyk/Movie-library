@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { EpisodeData, FullMovieData, SearchMovieData, SeasonData } from "../models/MovieData";
 
-const apiKey = "187968b";
+const apiKey = process.env.REACT_APP_APIKEY;
 
 export const MovieApi = createApi({
     reducerPath: "MovieApi",
