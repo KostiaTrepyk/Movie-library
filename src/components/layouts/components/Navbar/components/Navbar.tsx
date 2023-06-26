@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppBar, Toolbar, Typography, Box, IconButton, Button, TextField } from "@mui/material";
+import { AppBar, Toolbar, Typography, Box, IconButton, Button, TextField, Fade } from "@mui/material";
 import { HOMEROUTE, Route, SEARCHROUTE } from "../../../../../core/Router/utils/routes";
 import { useToggle } from "../../../../../core/hooks/useToggle";
 
@@ -37,7 +37,6 @@ const Navbar: React.FC = () => {
         /* Submit */
         if (Boolean(query)) {
             /* Search */
-
             searchFromRef.current?.requestSubmit();
             return;
         }
@@ -53,8 +52,9 @@ const Navbar: React.FC = () => {
         setIsSearchInpOpened(() => false);
     }
 
-    function SearchSubmitHanlder(e?: React.FormEvent<HTMLFormElement>) {
-        e && e.preventDefault();
+    function SearchSubmitHanlder(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+
         const path = SEARCHROUTE.path + `/?title=${query.toLocaleLowerCase()}`;
         navigate(path);
 
@@ -132,7 +132,7 @@ const Navbar: React.FC = () => {
                             flexGrow: 1,
                         }}
                     >
-                        {/* Serach input PC*/}
+                        {/* Search Form */}
                         <Box
                             sx={{ display: "flex", gap: "inherit", width: { sm: "auto", xs: "100%" } }}
                             component={"form"}
@@ -141,38 +141,43 @@ const Navbar: React.FC = () => {
                         >
                             <Box
                                 sx={{
-                                    display: isSearchInpOpened ? "flex" : "hidden",
+                                    display: "flex",
                                     justifyContent: "center",
                                     width: "100%",
                                 }}
                             >
                                 {/* Search input */}
-                                <TextField
-                                    sx={{ display: isSearchInpOpened ? "inline" : "none", width: "100%" }}
-                                    fullWidth
-                                    ref={serachInpRef}
-                                    InputProps={{
-                                        inputMode: "search",
-                                        size: "small",
-                                        value: query,
-                                        onChange: (e) => setQuery(() => e.target.value),
-                                        endAdornment: Boolean(query) && (
-                                            <IconButton
-                                                size="small"
-                                                sx={{ m: 0, p: 0.1 }}
-                                                onClick={() => {
-                                                    setQuery(() => "");
-                                                }}
-                                            >
-                                                <ClearIcon />
-                                            </IconButton>
-                                        ),
-                                    }}
-                                    inputProps={{
-                                        pattern: ".{3,}",
-                                        title: "Three or more characters",
-                                    }}
-                                />
+                                <Fade in={isSearchInpOpened}>
+                                    <TextField
+                                        sx={{
+                                            display: isSearchInpOpened ? "inline" : "none",
+                                        }}
+                                        ref={serachInpRef}
+                                        autoComplete="off"
+                                        size="small"
+                                        inputMode="search"
+                                        value={query}
+                                        onChange={(e) => setQuery(() => e.target.value)}
+                                        fullWidth
+                                        InputProps={{
+                                            endAdornment: Boolean(query) && (
+                                                <IconButton
+                                                    size="small"
+                                                    sx={{ m: 0, p: 0.1 }}
+                                                    onClick={() => {
+                                                        setQuery(() => "");
+                                                    }}
+                                                >
+                                                    <ClearIcon />
+                                                </IconButton>
+                                            ),
+                                        }}
+                                        inputProps={{
+                                            pattern: "[a-z,A-z]{3,}",
+                                            title: "Three or more characters",
+                                        }}
+                                    />
+                                </Fade>
                             </Box>
 
                             {/* SearchBtn */}
