@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
+import { FormEvent, useState } from "react";
 import { Box, IconButton, Stack, TextField, Typography } from "@mui/material";
 
-/* Icons */
+import LayoutContainer from "./components/LayoutContainer";
 import SearchIcon from "@mui/icons-material/Search";
-import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+
+/* Icons */
 import { objToSearchParams } from "../../helpers/objToSearchParams";
 import { SEARCHROUTE } from "../../core/Router/utils/routes";
 
@@ -21,23 +23,7 @@ const HomePage: React.FC = () => {
     }
 
     return (
-        <Box
-            sx={{
-                boxSizing: "border-box",
-                height: "100svh",
-                paddingTop: "64px",
-
-                bgcolor: "#0002",
-                backgroundImage:
-                    "url(https://daily.kellogg.edu/wp-content/uploads/2018/08/film-interpretation.jpg)",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-                backgroundPositionX: "35%",
-                backgroundPositionY: "0%",
-                backgroundAttachment: "fixed",
-                backgroundBlendMode: "color-burn",
-            }}
-        >
+        <LayoutContainer>
             <Box
                 sx={{
                     boxSizing: "border-box",
@@ -94,7 +80,7 @@ const HomePage: React.FC = () => {
                     </Stack>
                 </Stack>
             </Box>
-        </Box>
+        </LayoutContainer>
     );
 };
 

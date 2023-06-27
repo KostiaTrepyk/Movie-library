@@ -30,7 +30,7 @@ const LayoutContainer = ({ children, loading = false }: PropsWithChildren & Layo
             >
                 <Box
                     sx={{
-                        bgcolor: { sm: grey[900], xs: "#212121f5" },
+                        bgcolor: { md: grey[900], xs: "#212121f5" },
                         width: { md: "82%" },
                         marginInline: "auto",
                         minHeight: `calc(100vh - 64px)`,
