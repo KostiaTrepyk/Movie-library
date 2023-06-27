@@ -6,4 +6,4 @@
 - typescript
 - react-router-dom
 
-### Link: https://kostiatrepyk.github.io/Movies-library
+### Link: https://kostiatrepyk.github.io/Movie-library
