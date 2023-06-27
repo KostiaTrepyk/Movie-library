@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import {  Container } from "@mui/material";
 
 import AuthFormModule from "../../modules/AuthFormModule/AuthForm.module";
 

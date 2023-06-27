@@ -34,8 +34,6 @@ const TabPanels: React.FC<TabPanelsProps> = ({ currentTab }) => {
     return (
         <Box
             sx={{
-                maxWidth: 500,
-                minHeight: 330,
                 marginInline: "auto",
             }}
         >

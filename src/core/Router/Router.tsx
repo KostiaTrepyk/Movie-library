@@ -1,17 +1,17 @@
 import { Suspense } from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import { useAppSelector } from "../hooks/useAppSelector";
 import { privateRoutes, publicRoutes } from "./utils/routes";
 
 import Layout from "../../components/layouts/Layout";
-import Loader from "../../pages/Loader/Loader";
+import Loader from "./components/Loader/Loader";
 import PageNotFound from "../../pages/PageNotFound/PageNotFound";
 
 const Router: React.FC = () => {
     const isAuth = useAppSelector((state) => state.auth.isAuth);
 
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Routes>
                 <Route element={<Layout />}>
                     {publicRoutes.map((route) => (
@@ -43,7 +43,7 @@ const Router: React.FC = () => {
                     <Route path="*" element={<PageNotFound />} />
                 </Route>
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
     );
 };
 

@@ -1,5 +1,5 @@
-import { LinearProgress } from "@mui/material";
 import { useLayoutEffect } from "react";
+import PageLoader from "../../../../components/PageLoader/PageLoader";
 
 const Loader: React.FC = () => {
     const scrollTop = document.documentElement.scrollTop;
@@ -11,7 +11,7 @@ const Loader: React.FC = () => {
         };
     }, [scrollTop]);
 
-    return <LinearProgress />;
+    return <PageLoader />;
 };
 
 export default Loader;

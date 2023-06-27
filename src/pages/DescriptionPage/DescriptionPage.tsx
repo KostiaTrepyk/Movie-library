@@ -1,9 +1,11 @@
-import { useParams } from "react-router-dom";
-import MovieDescriptionModule from "../../modules/MovieDescriptionModule/MovieDescription.module";
-import { Container, LinearProgress, Stack, Typography } from "@mui/material";
-import { MovieApi } from "../../services/Movie";
-import SeasonDescriptionModule from "../../modules/SeasonDescriptionModule/SeasonDescription.module";
 import { useLayoutEffect } from "react";
+import { useParams } from "react-router-dom";
+import { Container, Stack, Typography } from "@mui/material";
+import { MovieApi } from "../../services/Movie";
+
+import MovieDescriptionModule from "../../modules/MovieDescriptionModule/MovieDescription.module";
+import SeasonDescriptionModule from "../../modules/SeasonDescriptionModule/SeasonDescription.module";
+import PageLoader from "../../components/PageLoader/PageLoader";
 
 type Params = {
     id: string;
@@ -23,7 +25,7 @@ const FilmPage: React.FC = () => {
     }
 
     if (!MovieData.currentData) {
-        return <LinearProgress />;
+        return <PageLoader />;
     }
 
     return (

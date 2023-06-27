@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Paper } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LOGINROUTE, REGISTRATIONROUTE } from "../../core/Router/utils/routes";
 import { AuthFormTabPanelValues } from "./models/AuthFormTabPanel";
@@ -19,11 +19,19 @@ const AuthFormModule: React.FC = () => {
     }
 
     return (
-        <Box width={"100%"}>
+        <Paper
+            sx={{
+                width: "100%",
+                maxWidth: "450px",
+                p: { sm: 2, xs: 1 },
+                borderRadius: 2,
+            }}
+            elevation={4}
+        >
             <TabSwitcher currentTab={tab} onTabChange={toggleTabs} />
 
             <TabPanels currentTab={tab} />
-        </Box>
+        </Paper>
     );
 };
 

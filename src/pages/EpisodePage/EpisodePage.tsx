@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
 import { MovieApi } from "../../services/Movie";
-import { Box, Button, Container, LinearProgress, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { useLayoutEffect } from "react";
 import EpisodeDescriptionModule from "../../modules/EpisodeDescriptionModule/EpisodeDescription.module";
 
 /* Icons */
 import ArrowBackIcon from "@mui/icons-material/ArrowBackIosNew";
+import PageLoader from "../../components/PageLoader/PageLoader";
 
 const SeriesEpisodePage: React.FC = () => {
     const params = useParams<{ episodeId: string }>();
@@ -21,7 +22,7 @@ const SeriesEpisodePage: React.FC = () => {
     }
 
     if (!currentData) {
-        return <LinearProgress />;
+        return <PageLoader />;
     }
 
     return (

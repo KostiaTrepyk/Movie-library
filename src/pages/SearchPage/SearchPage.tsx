@@ -1,11 +1,13 @@
+import { useLayoutEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { MovieApi } from "../../services/Movie";
 import { Box, Container, Pagination, Typography } from "@mui/material";
 import { DESCRIPTIONROUTE } from "../../core/Router/utils/routes";
-import SearchModule from "../../modules/SearchModule/Search.module";
-import { useLayoutEffect } from "react";
-import MovieList from "../../components/MovieList/MovieList";
+import { MovieApi } from "../../services/Movie";
+
 import { getObjFromSearchParams } from "../../helpers/getObjFromSearchParams";
+
+import SearchModule from "../../modules/SearchModule/Search.module";
+import MovieList from "../../components/MovieList/MovieList";
 
 type Query = {
     title?: string;
@@ -64,7 +66,7 @@ const SearchPage: React.FC = () => {
 
     return (
         <Container
-            maxWidth="xl"
+            maxWidth={false}
             sx={{
                 pt: 2,
                 pb: 3,
