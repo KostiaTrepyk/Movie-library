@@ -104,7 +104,7 @@ const Navbar: React.FC = () => {
                                 cursor: "pointer",
                             }}
                         >
-                            YMovies
+                            MLib
                         </Typography>
                     </Box>
 

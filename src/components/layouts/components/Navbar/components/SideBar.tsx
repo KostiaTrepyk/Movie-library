@@ -55,7 +55,7 @@ const SideBar: React.FC<SideBarProps> = ({ routes, open, onOpen, onClose }) => {
                         variant="body1"
                         sx={{ fontFamily: "monospace", fontWeight: 700, letterSpacing: ".3rem" }}
                     >
-                        YMovies
+                        MLib
                     </Typography>
                 </Box>
 

@@ -74,7 +74,7 @@ const SearchPage: React.FC = () => {
                 }}
             >
                 {/* Search module */}
-                <Box sx={{ mb: 2 }}>
+                <Box sx={{ mb: 2, width: "95%", marginInline: 'auto' }}>
                     <SearchModule isLoading={isLoading} />
                 </Box>
 

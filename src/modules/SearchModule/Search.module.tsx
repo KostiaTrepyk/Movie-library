@@ -41,9 +41,9 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading }) => {
     return (
         <Paper
             sx={{
-                px: { sm: 6, xs: 3 },
-                pt: { sm: 5, xs: 3 },
-                pb: { sm: 6, xs: 4 },
+                px: { sm: 6, xs: 2 },
+                pt: { sm: 5, xs: 2 },
+                pb: { sm: 6, xs: 3 },
                 borderRadius: 2,
                 width: "fit-content",
                 mx: "auto",
