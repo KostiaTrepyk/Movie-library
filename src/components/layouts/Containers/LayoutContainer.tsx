@@ -13,10 +13,10 @@ const LayoutContainer = ({ children, loading = false }: PropsWithChildren & Layo
             <Paper
                 elevation={1}
                 sx={{
-                    boxSizing: "border-box",
                     borderRadius: 0,
                     mt: `64px`,
 
+                    bgcolor: grey[900],
                     backgroundImage:
                         "url(https://www.teahub.io/photos/full/220-2205714_get-the-latest-movies-data-src-kodi-tv.jpg)",
 
@@ -25,6 +25,7 @@ const LayoutContainer = ({ children, loading = false }: PropsWithChildren & Layo
                     backgroundPositionX: "50%",
                     backgroundPositionY: "55%",
                     backgroundAttachment: "fixed",
+                    objectFit: "cover",
                 }}
             >
                 <Box

@@ -17,8 +17,6 @@ const HomePage: React.FC = () => {
 
         const query = objToSearchParams({ title });
 
-        console.log(query);
-
         navigate(SEARCHROUTE.path + query);
     }
 
