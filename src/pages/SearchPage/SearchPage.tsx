@@ -1,6 +1,6 @@
 import { useLayoutEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Box, Container, Pagination, Typography } from "@mui/material";
+import { Box, Pagination, Typography } from "@mui/material";
 import { DESCRIPTIONROUTE } from "../../core/Router/utils/routes";
 import { MovieApi } from "../../services/Movie";
 
@@ -8,6 +8,7 @@ import { getObjFromSearchParams } from "../../helpers/getObjFromSearchParams";
 
 import SearchModule from "../../modules/SearchModule/Search.module";
 import MovieList from "../../components/MovieList/MovieList";
+import LayoutContainer from "../../components/layouts/Containers/LayoutContainer";
 
 type Query = {
     title?: string;
@@ -53,55 +54,56 @@ const SearchPage: React.FC = () => {
     /* error */
     if (isError) {
         return (
-            <Container maxWidth="xl" sx={{ pt: 2, pb: 3 }}>
+            <LayoutContainer>
                 <Typography
                     variant="h3"
-                    sx={{ fontSize: { md: "2.5rem", sm: "2rem", xs: "1.7rem" }, textAlign: "center" }}
+                    sx={{ fontSize: { md: "2.5rem", sm: "2rem", xs: "1.7rem" }, textAlign: "center", pt: 5 }}
                 >
-                    Error!
+                    Network or server error! Try later.
                 </Typography>
-            </Container>
+            </LayoutContainer>
         );
     }
 
     return (
-        <Container
-            maxWidth={false}
-            sx={{
-                pt: 2,
-                pb: 3,
-            }}
-        >
-            {/* Search module */}
-            <Box sx={{ mb: 2 }}>
-                <SearchModule isLoading={isLoading} />
+        <LayoutContainer>
+            <Box
+                sx={{
+                    pt: 2,
+                    pb: 3,
+                }}
+            >
+                {/* Search module */}
+                <Box sx={{ mb: 2 }}>
+                    <SearchModule isLoading={isLoading} />
+                </Box>
+
+                {/* Films not found */}
+                {currentData?.Response === "False" && (
+                    <Typography
+                        variant="h3"
+                        sx={{ fontSize: { md: "2.5rem", sm: "2rem", xs: "1.7rem" }, textAlign: "center" }}
+                    >
+                        Films not found!
+                    </Typography>
+                )}
+
+                {/* MovieList */}
+                {currentData?.Response === "True" && currentData.Search && (
+                    <MovieList movies={currentData.Search} onMovieClick={movieClickHandler} />
+                )}
+
+                {currentData?.Search && (
+                    <Pagination
+                        count={Math.ceil(Number(currentData?.totalResults) / 10 || 0)}
+                        page={query?.page ? +query.page : 1}
+                        onChange={changePageHandler}
+                        sx={{ display: "flex", justifyContent: "center" }}
+                        size="medium" /* Fix me */
+                    />
+                )}
             </Box>
-
-            {/* Films not found */}
-            {currentData?.Response === "False" && (
-                <Typography
-                    variant="h3"
-                    sx={{ fontSize: { md: "2.5rem", sm: "2rem", xs: "1.7rem" }, textAlign: "center" }}
-                >
-                    Films not found!
-                </Typography>
-            )}
-
-            {/* MovieList */}
-            {currentData?.Response === "True" && currentData.Search && (
-                <MovieList movies={currentData.Search} onMovieClick={movieClickHandler} />
-            )}
-
-            {currentData?.Search && (
-                <Pagination
-                    count={Math.ceil(Number(currentData?.totalResults) / 10 || 0)}
-                    page={query?.page ? +query.page : 1}
-                    onChange={changePageHandler}
-                    sx={{ display: "flex", justifyContent: "center" }}
-                    size="medium" /* Fix me */
-                />
-            )}
-        </Container>
+        </LayoutContainer>
     );
 };
 

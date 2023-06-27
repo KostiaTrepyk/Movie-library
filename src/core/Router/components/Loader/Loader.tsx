@@ -1,5 +1,6 @@
 import { useLayoutEffect } from "react";
-import PageLoader from "../../../../components/PageLoader/PageLoader";
+
+import LayoutContainer from "../../../../components/layouts/Containers/LayoutContainer";
 
 const Loader: React.FC = () => {
     const scrollTop = document.documentElement.scrollTop;
@@ -11,7 +12,7 @@ const Loader: React.FC = () => {
         };
     }, [scrollTop]);
 
-    return <PageLoader />;
+    return <LayoutContainer loading />;
 };
 
 export default Loader;

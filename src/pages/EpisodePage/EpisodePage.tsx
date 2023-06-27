@@ -6,7 +6,7 @@ import EpisodeDescriptionModule from "../../modules/EpisodeDescriptionModule/Epi
 
 /* Icons */
 import ArrowBackIcon from "@mui/icons-material/ArrowBackIosNew";
-import PageLoader from "../../components/PageLoader/PageLoader";
+import LayoutContainer from "../../components/layouts/Containers/LayoutContainer";
 
 const SeriesEpisodePage: React.FC = () => {
     const params = useParams<{ episodeId: string }>();
@@ -22,32 +22,34 @@ const SeriesEpisodePage: React.FC = () => {
     }
 
     if (!currentData) {
-        return <PageLoader />;
+        return <LayoutContainer loading />;
     }
 
     return (
-        <Container maxWidth="xl" sx={{ pt: 2, pb: 3 }}>
-            {currentData?.Response === "True" ? (
-                <EpisodeDescriptionModule episodeId={params.episodeId || ""} />
-            ) : (
-                <Box>
-                    {/* Fix me */}
-                    <Button
-                        size="small"
-                        color="inherit"
-                        onClick={() => {
-                            console.log('Fix me');
-                        }}
-                    >
-                        <ArrowBackIcon sx={{ mr: 1 }} />
-                        <Typography variant="h6">Back</Typography>
-                    </Button>
-                    <Typography variant="h4" align="center">
-                        Episode not found
-                    </Typography>
-                </Box>
-            )}
-        </Container>
+        <LayoutContainer>
+            <Container maxWidth="xl" sx={{ pt: 2, pb: 3 }}>
+                {currentData?.Response === "True" ? (
+                    <EpisodeDescriptionModule episodeId={params.episodeId || ""} />
+                ) : (
+                    <Box>
+                        {/* Fix me */}
+                        <Button
+                            size="small"
+                            color="inherit"
+                            onClick={() => {
+                                console.log("Fix me");
+                            }}
+                        >
+                            <ArrowBackIcon sx={{ mr: 1 }} />
+                            <Typography variant="h6">Back</Typography>
+                        </Button>
+                        <Typography variant="h4" align="center">
+                            Episode not found
+                        </Typography>
+                    </Box>
+                )}
+            </Container>
+        </LayoutContainer>
     );
 };
 

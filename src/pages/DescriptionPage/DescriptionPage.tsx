@@ -5,7 +5,7 @@ import { MovieApi } from "../../services/Movie";
 
 import MovieDescriptionModule from "../../modules/MovieDescriptionModule/MovieDescription.module";
 import SeasonDescriptionModule from "../../modules/SeasonDescriptionModule/SeasonDescription.module";
-import PageLoader from "../../components/PageLoader/PageLoader";
+import LayoutContainer from "../../components/layouts/Containers/LayoutContainer";
 
 type Params = {
     id: string;
@@ -25,19 +25,21 @@ const FilmPage: React.FC = () => {
     }
 
     if (!MovieData.currentData) {
-        return <PageLoader />;
+        return <LayoutContainer loading />;
     }
 
     return (
-        <Container maxWidth={"xl"} sx={{ px: { md: 2, sm: 1, xs: 2 }, pt: 2, pb: 3 }} disableGutters>
-            <Stack spacing={8}>
-                <MovieDescriptionModule movieId={params.id || ""} />
+        <LayoutContainer>
+            <Container maxWidth={"xl"} sx={{ px: { md: 2, sm: 1, xs: 2 }, pt: 2, pb: 3 }} disableGutters>
+                <Stack spacing={8}>
+                    <MovieDescriptionModule movieId={params.id || ""} />
 
-                {MovieData.currentData?.Type === "series" && (
-                    <SeasonDescriptionModule movieId={params.id || ""} />
-                )}
-            </Stack>
-        </Container>
+                    {MovieData.currentData?.Type === "series" && (
+                        <SeasonDescriptionModule movieId={params.id || ""} />
+                    )}
+                </Stack>
+            </Container>{" "}
+        </LayoutContainer>
     );
 };
 
