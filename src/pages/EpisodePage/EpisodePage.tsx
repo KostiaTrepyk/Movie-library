@@ -6,7 +6,7 @@ import EpisodeDescriptionModule from "../../modules/EpisodeDescriptionModule/Epi
 
 /* Icons */
 import ArrowBackIcon from "@mui/icons-material/ArrowBackIosNew";
-import LayoutContainer from "../../components/layouts/Containers/LayoutContainer";
+import DefaultLayoutContainer from "../../components/layouts/Containers/DefaultLayoutContainer";
 
 const SeriesEpisodePage: React.FC = () => {
     const params = useParams<{ episodeId: string }>();
@@ -22,11 +22,11 @@ const SeriesEpisodePage: React.FC = () => {
     }
 
     if (!currentData) {
-        return <LayoutContainer loading />;
+        return <DefaultLayoutContainer loading />;
     }
 
     return (
-        <LayoutContainer>
+        <DefaultLayoutContainer>
             <Container maxWidth="xl" sx={{ pt: 2, pb: 3 }}>
                 {currentData?.Response === "True" ? (
                     <EpisodeDescriptionModule episodeId={params.episodeId || ""} />
@@ -49,7 +49,7 @@ const SeriesEpisodePage: React.FC = () => {
                     </Box>
                 )}
             </Container>
-        </LayoutContainer>
+        </DefaultLayoutContainer>
     );
 };
 

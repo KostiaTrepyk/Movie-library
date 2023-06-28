@@ -173,8 +173,8 @@ const Navbar: React.FC = () => {
                                             ),
                                         }}
                                         inputProps={{
-                                            pattern: "[a-z,A-z]{3,}",
-                                            title: "Three or more characters",
+                                            pattern: ".{3,}",
+                                            title: "Three or more characters!",
                                         }}
                                     />
                                 </Fade>

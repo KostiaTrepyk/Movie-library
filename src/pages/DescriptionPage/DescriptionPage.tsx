@@ -5,7 +5,7 @@ import { MovieApi } from "../../services/Movie";
 
 import MovieDescriptionModule from "../../modules/MovieDescriptionModule/MovieDescription.module";
 import SeasonDescriptionModule from "../../modules/SeasonDescriptionModule/SeasonDescription.module";
-import LayoutContainer from "../../components/layouts/Containers/LayoutContainer";
+import DefaultLayoutContainer from "../../components/layouts/Containers/DefaultLayoutContainer";
 
 type Params = {
     id: string;
@@ -25,11 +25,11 @@ const FilmPage: React.FC = () => {
     }
 
     if (!MovieData.currentData) {
-        return <LayoutContainer loading />;
+        return <DefaultLayoutContainer loading />;
     }
 
     return (
-        <LayoutContainer>
+        <DefaultLayoutContainer>
             <Container maxWidth={"xl"} sx={{ px: { md: 2, sm: 1, xs: 2 }, pt: 2, pb: 3 }} disableGutters>
                 <Stack spacing={8}>
                     <MovieDescriptionModule movieId={params.id || ""} />
@@ -38,8 +38,8 @@ const FilmPage: React.FC = () => {
                         <SeasonDescriptionModule movieId={params.id || ""} />
                     )}
                 </Stack>
-            </Container>{" "}
-        </LayoutContainer>
+            </Container>
+        </DefaultLayoutContainer>
     );
 };
 

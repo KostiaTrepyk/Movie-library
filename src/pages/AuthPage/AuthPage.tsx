@@ -1,11 +1,11 @@
 import { Container } from "@mui/material";
 
 import AuthFormModule from "../../modules/AuthFormModule/AuthForm.module";
-import LayoutContainer from "../../components/layouts/Containers/LayoutContainer";
+import DefaultLayoutContainer from "../../components/layouts/Containers/DefaultLayoutContainer";
 
 const AuthPage: React.FC = () => {
     return (
-        <LayoutContainer>
+        <DefaultLayoutContainer>
             <Container
                 maxWidth="xl"
                 sx={{
@@ -18,7 +18,7 @@ const AuthPage: React.FC = () => {
             >
                 <AuthFormModule />
             </Container>
-        </LayoutContainer>
+        </DefaultLayoutContainer>
     );
 };
 

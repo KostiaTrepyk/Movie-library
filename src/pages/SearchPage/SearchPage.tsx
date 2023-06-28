@@ -8,7 +8,7 @@ import { getObjFromSearchParams } from "../../helpers/getObjFromSearchParams";
 
 import SearchModule from "../../modules/SearchModule/Search.module";
 import MovieList from "../../components/MovieList/MovieList";
-import LayoutContainer from "../../components/layouts/Containers/LayoutContainer";
+import DefaultLayoutContainer from "../../components/layouts/Containers/DefaultLayoutContainer";
 
 type Query = {
     title?: string;
@@ -54,19 +54,19 @@ const SearchPage: React.FC = () => {
     /* error */
     if (isError) {
         return (
-            <LayoutContainer>
+            <DefaultLayoutContainer>
                 <Typography
                     variant="h3"
                     sx={{ fontSize: { md: "2.5rem", sm: "2rem", xs: "1.7rem" }, textAlign: "center", pt: 5 }}
                 >
                     Network or server error! Try later.
                 </Typography>
-            </LayoutContainer>
+            </DefaultLayoutContainer>
         );
     }
 
     return (
-        <LayoutContainer>
+        <DefaultLayoutContainer>
             <Box
                 sx={{
                     pt: 2,
@@ -103,7 +103,7 @@ const SearchPage: React.FC = () => {
                     />
                 )}
             </Box>
-        </LayoutContainer>
+        </DefaultLayoutContainer>
     );
 };
 

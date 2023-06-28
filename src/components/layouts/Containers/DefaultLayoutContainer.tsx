@@ -6,7 +6,7 @@ interface LayoutContainerProps {
     loading?: boolean;
 }
 
-const LayoutContainer = ({ children, loading = false }: PropsWithChildren & LayoutContainerProps) => {
+const DefaultLayoutContainer = ({ children, loading = false }: PropsWithChildren & LayoutContainerProps) => {
     return (
         <>
             {loading && <LinearProgress sx={{ position: "relative", top: "64px", left: "0px" }} />}
@@ -43,4 +43,4 @@ const LayoutContainer = ({ children, loading = false }: PropsWithChildren & Layo
     );
 };
 
-export default LayoutContainer;
+export default DefaultLayoutContainer;

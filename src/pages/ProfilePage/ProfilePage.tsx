@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../core/hooks/useAppDispatch";
 import { AuthActions } from "../../redux/AuthSlice/AuthSlice";
 import { HOMEROUTE } from "../../core/Router/utils/routes";
 
-import LayoutContainer from "../../components/layouts/Containers/LayoutContainer";
+import DefaultLayoutContainer from "../../components/layouts/Containers/DefaultLayoutContainer";
 
 /* Icons */
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -22,7 +22,7 @@ const ProfilePage: React.FC = () => {
     }
 
     return (
-        <LayoutContainer>
+        <DefaultLayoutContainer>
             <Paper
                 sx={{ boxSizing: "border-box", p: 3, marginInline: "auto", maxWidth: "600px", width: "90%" }}
             >
@@ -53,7 +53,7 @@ const ProfilePage: React.FC = () => {
                     </IconButton>
                 </Box>
             </Paper>
-        </LayoutContainer>
+        </DefaultLayoutContainer>
     );
 };
 
