@@ -18,7 +18,7 @@ import { objToSearchParams } from "../../helpers/objToSearchParams";
 /* Icons */
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
-import { LocalstorageKeys } from "../../utils/localstorage_keys";
+
 
 interface SearchModuleProps {
     isLoading?: boolean;
@@ -29,7 +29,6 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading }) => {
     const [year, setYear] = useState<string>("");
     const [type, setType] = useState<string>("");
 
-    const isMobile = JSON.parse(localStorage.getItem(LocalstorageKeys.isMbile) || "");
 
     const navigate = useNavigate();
 

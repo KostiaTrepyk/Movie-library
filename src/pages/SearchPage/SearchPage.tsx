@@ -4,12 +4,12 @@ import { Box, Pagination, Typography } from "@mui/material";
 import { DESCRIPTIONROUTE } from "../../core/Router/utils/routes";
 import { MovieApi } from "../../services/Movie";
 import { getObjFromSearchParams } from "../../helpers/getObjFromSearchParams";
+import { LocalstorageKeys } from "../../utils/localstorage_keys";
 
 import SearchModule from "../../modules/SearchModule/Search.module";
 
 import MovieList from "../../components/MovieList/MovieList";
 import DefaultPageContainer from "../../components/Containers/DefaultPageContainer";
-import { LocalstorageKeys } from "../../utils/localstorage_keys";
 
 type Query = {
     title?: string;

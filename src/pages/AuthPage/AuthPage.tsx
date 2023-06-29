@@ -1,3 +1,4 @@
+import { useLayoutEffect } from "react";
 import { Box } from "@mui/material";
 
 import AuthFormModule from "../../modules/AuthFormModule/AuthForm.module";
@@ -5,6 +6,10 @@ import AuthFormModule from "../../modules/AuthFormModule/AuthForm.module";
 import DefaultPageContainer from "../../components/Containers/DefaultPageContainer";
 
 const AuthPage: React.FC = () => {
+    useLayoutEffect(() => {
+        window.scrollTo({ top: 0 });
+    }, []);
+
     return (
         <DefaultPageContainer>
             <Box
