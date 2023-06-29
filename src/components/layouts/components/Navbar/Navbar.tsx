@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Box, IconButton, Button, TextField, Fade } from "@mui/material";
-import { HOMEROUTE, Route, SEARCHROUTE } from "../../../../../core/Router/utils/routes";
-import { useToggle } from "../../../../../core/hooks/useToggle";
+import { SEARCHROUTE, HOMEROUTE, Route } from "../../../../core/Router/utils/routes";
+import { useToggle } from "../../../../core/hooks/useToggle";
 
-import SideBar from "./SideBar";
-import Avatar from "./Avatar";
+import SideBar from "./components/SideBar";
+import Avatar from "./components/Avatar";
 
 /* Icons */
 import LogoIcon from "@mui/icons-material/MovieFilter";
@@ -68,7 +68,7 @@ const Navbar: React.FC = () => {
             <Box sx={{ padding: { md: "0 10vw", sm: "0 5vw", xs: "0 15px" } }}>
                 <Toolbar sx={{ height: 64 /* Toolbar height */ }} disableGutters>
                     {/* Mobile MenuBtn */}
-                    <Box sx={{ display: { xs: "flex", lg: "none" } }}>
+                    <Box sx={{ display: { xs: "flex", lg: "none" }, mr: 1 }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"

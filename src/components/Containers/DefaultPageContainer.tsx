@@ -1,12 +1,12 @@
+import { PropsWithChildren } from "react";
 import { Box, LinearProgress, Paper } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { PropsWithChildren } from "react";
 
 interface LayoutContainerProps {
     loading?: boolean;
 }
 
-const DefaultLayoutContainer = ({ children, loading = false }: PropsWithChildren & LayoutContainerProps) => {
+const DefaultPageContainer = ({ children, loading = false }: PropsWithChildren & LayoutContainerProps) => {
     return (
         <>
             {loading && <LinearProgress sx={{ position: "relative", top: "64px", left: "0px" }} />}
@@ -30,10 +30,14 @@ const DefaultLayoutContainer = ({ children, loading = false }: PropsWithChildren
             >
                 <Box
                     sx={{
-                        bgcolor: { md: grey[900], xs: "#212121f5" },
-                        width: { md: "82%" },
+                        boxSizing: "border-box",
+                        background: { md: 'linear-gradient(90deg, rgba(30,30,30,1) 0%, rgba(39,39,39,1) 50%, rgba(30,30,30,1) 100%)', xs: "#212121f5" },
+                        width: { md: "83%" },
                         marginInline: "auto",
                         minHeight: `calc(100vh - 64px)`,
+                        pt: { md: 4, xs: 2 },
+                        paddingInline: { lg: 7, xs: "max(3%, 16px)" },
+                        pb: { md: 5, xs: 3 },
                     }}
                 >
                     {children}
@@ -43,4 +47,4 @@ const DefaultLayoutContainer = ({ children, loading = false }: PropsWithChildren
     );
 };
 
-export default DefaultLayoutContainer;
+export default DefaultPageContainer;

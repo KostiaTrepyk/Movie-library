@@ -1,13 +1,13 @@
-import { useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Box, IconButton, Stack, TextField, Typography } from "@mui/material";
+import { SEARCHROUTE } from "../../core/Router/utils/routes";
+import { objToSearchParams } from "../../helpers/objToSearchParams";
 
-import LayoutContainer from "./components/LayoutContainer";
-import SearchIcon from "@mui/icons-material/Search";
+import HomePageContainer from "./components/HomePageContainer";
 
 /* Icons */
-import { objToSearchParams } from "../../helpers/objToSearchParams";
-import { SEARCHROUTE } from "../../core/Router/utils/routes";
+import SearchIcon from "@mui/icons-material/Search";
 
 const HomePage: React.FC = () => {
     const [title, setTitle] = useState<string>("");
@@ -23,7 +23,7 @@ const HomePage: React.FC = () => {
     }
 
     return (
-        <LayoutContainer>
+        <HomePageContainer>
             <Box
                 sx={{
                     boxSizing: "border-box",
@@ -80,7 +80,7 @@ const HomePage: React.FC = () => {
                     </Stack>
                 </Stack>
             </Box>
-        </LayoutContainer>
+        </HomePageContainer>
     );
 };
 

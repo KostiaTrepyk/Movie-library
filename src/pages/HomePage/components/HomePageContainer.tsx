@@ -6,7 +6,7 @@ interface LayoutContainerProps {
     loading?: boolean;
 }
 
-const LayoutContainer = ({ children, loading = false }: PropsWithChildren & LayoutContainerProps) => {
+const HomePageContainer = ({ children, loading = false }: PropsWithChildren & LayoutContainerProps) => {
     return (
         <Box sx={{ bgcolor: grey[900] }}>
             <Box
@@ -24,8 +24,8 @@ const LayoutContainer = ({ children, loading = false }: PropsWithChildren & Layo
                     backgroundPositionY: "0%",
                     backgroundAttachment: "fixed",
                     backgroundBlendMode: "darken",
+                    objectFit: "cover",
                     printColorAdjust: "exact",
-                    imageRendering: "pixelated",
                 }}
             >
                 {loading && <LinearProgress />}
@@ -35,4 +35,4 @@ const LayoutContainer = ({ children, loading = false }: PropsWithChildren & Layo
     );
 };
 
-export default LayoutContainer;
+export default HomePageContainer;

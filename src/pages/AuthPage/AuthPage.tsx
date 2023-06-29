@@ -1,24 +1,24 @@
-import { Container } from "@mui/material";
+import { Box } from "@mui/material";
 
 import AuthFormModule from "../../modules/AuthFormModule/AuthForm.module";
-import DefaultLayoutContainer from "../../components/layouts/Containers/DefaultLayoutContainer";
+
+import DefaultPageContainer from "../../components/Containers/DefaultPageContainer";
 
 const AuthPage: React.FC = () => {
     return (
-        <DefaultLayoutContainer>
-            <Container
-                maxWidth="xl"
+        <DefaultPageContainer>
+            <Box
                 sx={{
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    minHeight: "calc(100svh - 64px)",
+                    minHeight: "calc(100svh - 128px)" /* ??? 128px (2 * navbarHeight) */,
                 }}
             >
                 <AuthFormModule />
-            </Container>
-        </DefaultLayoutContainer>
+            </Box>
+        </DefaultPageContainer>
     );
 };
 

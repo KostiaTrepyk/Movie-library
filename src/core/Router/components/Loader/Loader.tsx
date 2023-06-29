@@ -1,6 +1,6 @@
 import { useLayoutEffect } from "react";
 
-import LayoutContainer from "../../../../components/layouts/Containers/DefaultLayoutContainer";
+import LayoutContainer from "../../../../components/Containers/DefaultPageContainer";
 
 const Loader: React.FC = () => {
     const scrollTop = document.documentElement.scrollTop;

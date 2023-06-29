@@ -1,11 +1,12 @@
 import { useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { MovieApi } from "../../services/Movie";
 
 import MovieDescriptionModule from "../../modules/MovieDescriptionModule/MovieDescription.module";
 import SeasonDescriptionModule from "../../modules/SeasonDescriptionModule/SeasonDescription.module";
-import DefaultLayoutContainer from "../../components/layouts/Containers/DefaultLayoutContainer";
+
+import DefaultPageContainer from "../../components/Containers/DefaultPageContainer";
 
 type Params = {
     id: string;
@@ -25,21 +26,19 @@ const FilmPage: React.FC = () => {
     }
 
     if (!MovieData.currentData) {
-        return <DefaultLayoutContainer loading />;
+        return <DefaultPageContainer loading />;
     }
 
     return (
-        <DefaultLayoutContainer>
-            <Container maxWidth={"xl"} sx={{ px: { md: 2, sm: 1, xs: 2 }, pt: 2, pb: 3 }} disableGutters>
-                <Stack spacing={8}>
-                    <MovieDescriptionModule movieId={params.id || ""} />
+        <DefaultPageContainer>
+            <Stack spacing={8}>
+                <MovieDescriptionModule movieId={params.id || ""} />
 
-                    {MovieData.currentData?.Type === "series" && (
-                        <SeasonDescriptionModule movieId={params.id || ""} />
-                    )}
-                </Stack>
-            </Container>
-        </DefaultLayoutContainer>
+                {MovieData.currentData?.Type === "series" && (
+                    <SeasonDescriptionModule movieId={params.id || ""} />
+                )}
+            </Stack>
+        </DefaultPageContainer>
     );
 };
 

@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Box, IconButton, Menu, MenuItem, Typography, Avatar as AvatarMUI } from "@mui/material";
-import { useAppSelector } from "../../../../../core/hooks/useAppSelector";
 import { useAppDispatch } from "../../../../../core/hooks/useAppDispatch";
+import { useAppSelector } from "../../../../../core/hooks/useAppSelector";
+import { PROFILEROUTE, LOGINROUTE, REGISTRATIONROUTE } from "../../../../../core/Router/utils/routes";
 import { AuthActions } from "../../../../../redux/AuthSlice/AuthSlice";
-import { LOGINROUTE, PROFILEROUTE, REGISTRATIONROUTE } from "../../../../../core/Router/utils/routes";
 
 /* Icons */
 import LoginIcon from "@mui/icons-material/Login";

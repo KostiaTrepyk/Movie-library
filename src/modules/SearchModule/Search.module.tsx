@@ -18,6 +18,7 @@ import { objToSearchParams } from "../../helpers/objToSearchParams";
 /* Icons */
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
+import { LocalstorageKeys } from "../../utils/localstorage_keys";
 
 interface SearchModuleProps {
     isLoading?: boolean;
@@ -27,6 +28,8 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading }) => {
     const [title, setTitle] = useState<string>("");
     const [year, setYear] = useState<string>("");
     const [type, setType] = useState<string>("");
+
+    const isMobile = JSON.parse(localStorage.getItem(LocalstorageKeys.isMbile) || "");
 
     const navigate = useNavigate();
 
@@ -41,7 +44,7 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading }) => {
     return (
         <Paper
             sx={{
-                px: { sm: 6, xs: 2 },
+                px: { sm: 6, xs: 3 },
                 pt: { sm: 5, xs: 2 },
                 pb: { sm: 6, xs: 3 },
                 borderRadius: 2,
@@ -62,6 +65,7 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading }) => {
                 component={"form"}
                 onSubmit={formSubmitHandler}
             >
+                {/* Title */}
                 <Typography
                     variant="body1"
                     sx={{ fontSize: { md: "2rem", sm: "1.75rem", xs: "1.5rem", textAlign: "center" } }}
@@ -98,14 +102,15 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading }) => {
                     sx={{
                         display: "flex",
                         flexWrap: "wrap",
-                        gap: { sm: 2, xs: 1 },
+                        gap: { sm: 3, xs: 2 },
                         justifyContent: "center",
                     }}
                 >
                     {/* Year input */}
                     <TextField
                         label="Year"
-                        sx={{ flexGrow: 1 }}
+                        type="text"
+                        sx={{ width: 80, flexGrow: 1 }}
                         InputProps={{
                             inputMode: "numeric",
                             onChange: (e) => setYear(() => e.target.value),
@@ -120,7 +125,7 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading }) => {
                     ></TextField>
 
                     {/* Type input */}
-                    <FormControl sx={{ flexGrow: 2, minWidth: "90px" }} disabled={isLoading}>
+                    <FormControl sx={{ flexGrow: 10, minWidth: 120 }} disabled={isLoading}>
                         <InputLabel>Type</InputLabel>
                         <Select
                             label="Type"

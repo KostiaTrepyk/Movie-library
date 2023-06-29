@@ -60,7 +60,7 @@ const EpisodeDescriptionModule: React.FC<EpisodeDescriptionModuleProps> = ({ epi
                     {/* About */}
                     <Typography
                         variant="h5"
-                        sx={{ textAlign: { sm: "start", xs: "center" }, ml: { sm: 2, xs: 0 } }}
+                        sx={{ textAlign: { md: "start", xs: "center" }, ml: { md: 2, xs: 0 } }}
                     >
                         About Film
                     </Typography>

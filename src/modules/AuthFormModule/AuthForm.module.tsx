@@ -21,8 +21,8 @@ const AuthFormModule: React.FC = () => {
     return (
         <Paper
             sx={{
-                width: "100%",
-                maxWidth: "450px",
+                boxSizing: "border-box",
+                width: "min(100%, 450px)",
                 p: { sm: 2, xs: 1 },
                 borderRadius: 2,
             }}

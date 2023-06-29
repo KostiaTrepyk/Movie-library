@@ -3,7 +3,7 @@ import { Box, Divider, Paper, Typography } from "@mui/material";
 const Footer: React.FC = () => {
     return (
         <Paper
-            elevation={0}
+            elevation={1}
             sx={{
                 borderRadius: 0,
             }}

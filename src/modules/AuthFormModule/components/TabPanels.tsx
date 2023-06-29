@@ -6,8 +6,8 @@ import { HOMEROUTE } from "../../../core/Router/utils/routes";
 import { AuthFormTabPanelValues } from "../models/AuthFormTabPanel";
 
 import TabPanel from "../../../components/TabPanel/TabPanel";
-import LoginForm, { LoginFormData } from "../../../components/LoginForm/LoginForm";
-import RegistrationForm, { RegistrationFormData } from "../../../components/RegistrationForm/RegistrationForm";
+import LoginForm, { LoginFormData } from "../../../components/Forms/LoginForm/LoginForm";
+import RegistrationForm, { RegistrationFormData } from "../../../components/Forms/RegistrationForm/RegistrationForm";
 
 interface TabPanelsProps {
     currentTab: AuthFormTabPanelValues;

@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../core/hooks/useAppDispatch";
 import { AuthActions } from "../../redux/AuthSlice/AuthSlice";
 import { HOMEROUTE } from "../../core/Router/utils/routes";
 
-import DefaultLayoutContainer from "../../components/layouts/Containers/DefaultLayoutContainer";
+import DefaultPageContainer from "../../components/Containers/DefaultPageContainer";
 
 /* Icons */
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -22,9 +22,10 @@ const ProfilePage: React.FC = () => {
     }
 
     return (
-        <DefaultLayoutContainer>
+        <DefaultPageContainer>
             <Paper
                 sx={{ boxSizing: "border-box", p: 3, marginInline: "auto", maxWidth: "600px", width: "90%" }}
+                elevation={5}
             >
                 <Typography variant="h4" align="center">
                     PROFILE
@@ -53,7 +54,7 @@ const ProfilePage: React.FC = () => {
                     </IconButton>
                 </Box>
             </Paper>
-        </DefaultLayoutContainer>
+        </DefaultPageContainer>
     );
 };
 

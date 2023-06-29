@@ -3,12 +3,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Pagination, Typography } from "@mui/material";
 import { DESCRIPTIONROUTE } from "../../core/Router/utils/routes";
 import { MovieApi } from "../../services/Movie";
-
 import { getObjFromSearchParams } from "../../helpers/getObjFromSearchParams";
 
 import SearchModule from "../../modules/SearchModule/Search.module";
+
 import MovieList from "../../components/MovieList/MovieList";
-import DefaultLayoutContainer from "../../components/layouts/Containers/DefaultLayoutContainer";
+import DefaultPageContainer from "../../components/Containers/DefaultPageContainer";
+import { LocalstorageKeys } from "../../utils/localstorage_keys";
 
 type Query = {
     title?: string;
@@ -21,6 +22,8 @@ const SearchPage: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const query: Query = getObjFromSearchParams(location.search);
+
+    const isMobile = JSON.parse(localStorage.getItem(LocalstorageKeys.isMbile) || "");
 
     /* default page = 1 */
     const { currentData, isError } = MovieApi.useSearchFilmByTitleQuery(
@@ -54,56 +57,49 @@ const SearchPage: React.FC = () => {
     /* error */
     if (isError) {
         return (
-            <DefaultLayoutContainer>
+            <DefaultPageContainer>
                 <Typography
                     variant="h3"
                     sx={{ fontSize: { md: "2.5rem", sm: "2rem", xs: "1.7rem" }, textAlign: "center", pt: 5 }}
                 >
                     Network or server error! Try later.
                 </Typography>
-            </DefaultLayoutContainer>
+            </DefaultPageContainer>
         );
     }
 
     return (
-        <DefaultLayoutContainer>
-            <Box
-                sx={{
-                    pt: 2,
-                    pb: 3,
-                }}
-            >
-                {/* Search module */}
-                <Box sx={{ mb: 2, width: "95%", marginInline: 'auto' }}>
-                    <SearchModule isLoading={isLoading} />
-                </Box>
-
-                {/* Films not found */}
-                {currentData?.Response === "False" && (
-                    <Typography
-                        variant="h3"
-                        sx={{ fontSize: { md: "2.5rem", sm: "2rem", xs: "1.7rem" }, textAlign: "center" }}
-                    >
-                        Films not found!
-                    </Typography>
-                )}
-
-                {/* MovieList */}
-                {currentData?.Response === "True" && currentData.Search && (
-                    <MovieList movies={currentData.Search} onMovieClick={movieClickHandler} />
-                )}
-
-                {currentData?.Search && (
-                    <Pagination
-                        count={Math.ceil(Number(currentData?.totalResults) / 10 || 0)}
-                        page={query?.page ? +query.page : 1}
-                        onChange={changePageHandler}
-                        sx={{ display: "flex", justifyContent: "center" }}
-                        size="medium" /* Fix me */
-                    />
-                )}
+        <DefaultPageContainer>
+            {/* Search module */}
+            <Box sx={{ mb: 2, width: "95%", marginInline: "auto" }}>
+                <SearchModule isLoading={isLoading} />
             </Box>
-        </DefaultLayoutContainer>
+
+            {/* Films not found */}
+            {currentData?.Response === "False" && (
+                <Typography
+                    variant="h3"
+                    sx={{ fontSize: { md: "2.5rem", sm: "2rem", xs: "1.7rem" }, textAlign: "center" }}
+                >
+                    Films not found!
+                </Typography>
+            )}
+
+            {/* MovieList */}
+            {currentData?.Response === "True" && currentData.Search && (
+                <MovieList movies={currentData.Search} onMovieClick={movieClickHandler} />
+            )}
+
+            {currentData?.Search && (
+                <Pagination
+                    count={Math.ceil(Number(currentData?.totalResults) / 10 || 0)}
+                    page={query?.page ? +query.page : 1}
+                    onChange={changePageHandler}
+                    sx={{ display: "flex", justifyContent: "center" }}
+                    size={isMobile ? "small" : "large"}
+                />
+            )}
+        </DefaultPageContainer>
     );
 };
 
