@@ -1,10 +1,10 @@
-import { useLayoutEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Pagination, Typography } from "@mui/material";
 import { DESCRIPTIONROUTE } from "../../core/Router/utils/routes";
-import { MovieApi } from "../../services/Movie";
+import { MovieApi1 } from "../../services/MovieApi1";
 import { getObjFromSearchParams } from "../../helpers/getObjFromSearchParams";
 import { LocalstorageKeys } from "../../utils/localstorage_keys";
+import { objToSearchParams } from "../../helpers/objToSearchParams";
 
 import SearchModule from "../../modules/SearchModule/Search.module";
 
@@ -19,14 +19,13 @@ type Query = {
 };
 
 const SearchPage: React.FC = () => {
+    const isMobile = JSON.parse(localStorage.getItem(LocalstorageKeys.isMbile) || "");
+
     const navigate = useNavigate();
     const location = useLocation();
     const query: Query = getObjFromSearchParams(location.search);
 
-    const isMobile = JSON.parse(localStorage.getItem(LocalstorageKeys.isMbile) || "");
-
-    /* default page = 1 */
-    const { currentData, isError } = MovieApi.useSearchFilmByTitleQuery(
+    const { data, isError, isFetching } = MovieApi1.useSearchByTitleQuery(
         {
             page: 1,
             ...query,
@@ -34,20 +33,11 @@ const SearchPage: React.FC = () => {
         { skip: !Boolean(query.title) }
     );
 
-    const isLoading = Boolean(query.title) && !currentData;
-
-    useLayoutEffect(() => {
-        window.scrollTo({ top: 0 });
-    }, []);
-
     function changePageHandler(e: React.ChangeEvent<unknown>, newPage: number) {
         /* Query building */
-        let search = location.search;
-        search = search.replace(`page=${query.page}`, `page=${newPage}`);
-        if (!search.includes("page")) search += `&page=${newPage}`;
+        let searchParams = objToSearchParams({ ...query, page: newPage });
 
-        window.scrollTo({ top: 0 });
-        navigate(location.pathname + search);
+        navigate(location.pathname + searchParams);
     }
 
     function movieClickHandler(id: string) {
@@ -72,11 +62,11 @@ const SearchPage: React.FC = () => {
         <DefaultPageContainer>
             {/* Search module */}
             <Box sx={{ mb: 2, width: "95%", marginInline: "auto" }}>
-                <SearchModule isLoading={isLoading} />
+                <SearchModule isLoading={isFetching} />
             </Box>
 
             {/* Films not found */}
-            {currentData?.Response === "False" && (
+            {data?.Response === "False" && (
                 <Typography
                     variant="h3"
                     sx={{ fontSize: { md: "2.5rem", sm: "2rem", xs: "1.7rem" }, textAlign: "center" }}
@@ -86,13 +76,13 @@ const SearchPage: React.FC = () => {
             )}
 
             {/* MovieList */}
-            {currentData?.Response === "True" && currentData.Search && (
-                <MovieList movies={currentData.Search} onMovieClick={movieClickHandler} />
+            {data?.Response === "True" && data.Search && (
+                <MovieList movies={data.Search} onMovieClick={movieClickHandler} />
             )}
 
-            {currentData?.Search && (
+            {data?.Search && (
                 <Pagination
-                    count={Math.ceil(Number(currentData?.totalResults) / 10 || 0)}
+                    count={Math.ceil(Number(data?.totalResults) / 10 || 0)}
                     page={query?.page ? +query.page : 1}
                     onChange={changePageHandler}
                     sx={{ display: "flex", justifyContent: "center" }}

@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
-import { ShortMovieData } from "../../models/MovieApi1";
+import { BaseInfoResultEntity } from "../../../models/MovieApi2";
 
-import MovieItem from "./components/MovieItem";
+import MovieListItem from "./MovieListItem";
 
 interface MovieListProps {
-    movies: ShortMovieData[];
+    movies: BaseInfoResultEntity[];
     onMovieClick: (movieID: string) => void;
 }
 
@@ -19,7 +19,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies, onMovieClick }) => {
             }}
         >
             {movies.map((movie) => (
-                <MovieItem movieData={movie} onClick={onMovieClick} key={movie.imdbID} />
+                <MovieListItem key={movie._id} movieData={movie} onClick={onMovieClick} />
             ))}
         </Box>
     );

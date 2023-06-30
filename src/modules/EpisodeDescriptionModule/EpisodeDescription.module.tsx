@@ -1,13 +1,14 @@
 import { Box, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
 import { Fragment } from "react";
-import { MovieApi } from "../../services/Movie";
+import { MovieApi1 } from "../../services/MovieApi1";
+import Loader from "./components/Loader";
 
 interface EpisodeDescriptionModuleProps {
     episodeId: string;
 }
 
 const EpisodeDescriptionModule: React.FC<EpisodeDescriptionModuleProps> = ({ episodeId }) => {
-    const { currentData } = MovieApi.useGetEpisodeQuery(episodeId);
+    const { currentData, isLoading } = MovieApi1.useGetEpisodeQuery(episodeId);
 
     const tableData = [
         { name: "Released:", value: currentData?.Released },
@@ -20,6 +21,10 @@ const EpisodeDescriptionModule: React.FC<EpisodeDescriptionModuleProps> = ({ epi
         { name: "Rated", value: currentData?.Rated },
         { name: "Awards", value: currentData?.Awards },
     ];
+
+    if (isLoading) {
+        return <Loader />;
+    }
 
     return (
         <Box>

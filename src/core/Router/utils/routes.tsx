@@ -7,6 +7,7 @@ import ShieldIcon from "@mui/icons-material/Shield";
 import PersonIcon from "@mui/icons-material/Person";
 import SearchIcon from "@mui/icons-material/Search";
 import DescriptionIcon from "@mui/icons-material/Description";
+import TheatersIcon from "@mui/icons-material/Theaters";
 
 /* Pages lazy import */
 const HomePage = lazy(() => import("../../../pages/HomePage/HomePage"));
@@ -15,6 +16,7 @@ const DescriptionPage = lazy(() => import("../../../pages/DescriptionPage/Descri
 const ProfilePage = lazy(() => import("../../../pages/ProfilePage/ProfilePage"));
 const SearchPage = lazy(() => import("../../../pages/SearchPage/SearchPage"));
 const SeriesEpisodePage = lazy(() => import("../../../pages/EpisodePage/EpisodePage"));
+const GenresPage = lazy(() => import("../../../pages/GenresPage/GenresPage"));
 
 /* Pathes */
 type PublicPathes =
@@ -23,7 +25,8 @@ type PublicPathes =
     | "/registration"
     | "/search"
     | "/description/:id"
-    | "/description/:id/:episodeId";
+    | "/description/:id/:episodeId"
+    | "/genres";
 type PrivatePathes = "/profile";
 
 /* Routes */
@@ -91,6 +94,13 @@ export const SERIESEPISODEROUTE: PublicRoute = {
     element: SeriesEpisodePage,
     icon: <SearchIcon />,
 };
+export const GENRESROUTE: PublicRoute = {
+    id: 8,
+    name: "Genres",
+    path: "/genres",
+    element: GenresPage,
+    icon: <TheatersIcon />,
+};
 
 export const publicRoutes: PublicRoute[] = [
     HOMEROUTE,
@@ -99,6 +109,7 @@ export const publicRoutes: PublicRoute[] = [
     DESCRIPTIONROUTE,
     SEARCHROUTE,
     SERIESEPISODEROUTE,
+    GENRESROUTE,
 ];
 export const privateRoutes: PrivateRoute[] = [PROFILEROUTE];
 

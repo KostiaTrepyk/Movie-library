@@ -1,4 +1,4 @@
-import { FormEvent, useLayoutEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, IconButton, Stack, TextField, Typography } from "@mui/material";
 import { SEARCHROUTE } from "../../core/Router/utils/routes";
@@ -14,15 +14,10 @@ const HomePage: React.FC = () => {
 
     const navigate = useNavigate();
 
-    useLayoutEffect(() => {
-        window.scrollTo({ top: 0 });
-    }, []);
-
     function SubmitHandler(e: FormEvent) {
         e.preventDefault();
-
+        
         const query = objToSearchParams({ title });
-
         navigate(SEARCHROUTE.path + query);
     }
 

@@ -1,4 +1,5 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useLayoutEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Box, LinearProgress, Paper } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
@@ -7,6 +8,12 @@ interface LayoutContainerProps {
 }
 
 const DefaultPageContainer = ({ children, loading = false }: PropsWithChildren & LayoutContainerProps) => {
+    const location = useLocation();
+
+    useLayoutEffect(() => {
+        window.scrollTo({ top: 0 });
+    }, [location]);
+
     return (
         <>
             {loading && <LinearProgress sx={{ position: "relative", top: "64px", left: "0px" }} />}
@@ -31,7 +38,10 @@ const DefaultPageContainer = ({ children, loading = false }: PropsWithChildren &
                 <Box
                     sx={{
                         boxSizing: "border-box",
-                        background: { md: 'linear-gradient(90deg, rgba(30,30,30,1) 0%, rgba(39,39,39,1) 50%, rgba(30,30,30,1) 100%)', xs: "#212121f5" },
+                        background: {
+                            md: "linear-gradient(90deg, rgba(30,30,30,1) 0%, rgba(39,39,39,1) 50%, rgba(30,30,30,1) 100%)",
+                            xs: "#212121f5",
+                        },
                         width: { md: "83%" },
                         marginInline: "auto",
                         minHeight: `calc(100vh - 64px)`,

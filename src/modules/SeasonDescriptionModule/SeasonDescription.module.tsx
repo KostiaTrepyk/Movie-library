@@ -9,7 +9,7 @@ import {
     SelectChangeEvent,
     Typography,
 } from "@mui/material";
-import { MovieApi } from "../../services/Movie";
+import { MovieApi1 } from "../../services/MovieApi1";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SERIESEPISODEROUTE } from "../../core/Router/utils/routes";
@@ -21,7 +21,7 @@ interface SeasonDescriptionModuleProps {
 
 const SeasonDescriptionModule: React.FC<SeasonDescriptionModuleProps> = ({ movieId }) => {
     const [season, setSeason] = useState<number>(1);
-    const { currentData, data, isError } = MovieApi.useGetSeasonQuery({ movieId, season }, {});
+    const { currentData, data, isError } = MovieApi1.useGetSeasonQuery({ movieId, season }, {});
 
     const navigate = useNavigate();
 

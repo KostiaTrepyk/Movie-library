@@ -1,13 +1,14 @@
-import { MovieApi } from "../../services/Movie";
+import { MovieApi1 } from "../../services/MovieApi1";
 import { Box, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
 import React, { Fragment } from "react";
+import Loader from "./components/Loader";
 
 interface MovieDescriptionModuleProps {
     movieId: string;
 }
 
 const MovieDescriptionModule: React.FC<MovieDescriptionModuleProps> = ({ movieId }) => {
-    const { data, isError } = MovieApi.useGetMovieByIdQuery(movieId, {});
+    const { data, isError, isSuccess, isFetching } = MovieApi1.useGetByIdQuery(movieId, {});
 
     const tableData = [
         { name: "Released:", value: data?.Released },
@@ -21,6 +22,26 @@ const MovieDescriptionModule: React.FC<MovieDescriptionModuleProps> = ({ movieId
         { name: "Total seasons", value: data?.totalSeasons },
         { name: "Writer", value: data?.Writer },
     ];
+
+    if (isFetching) {
+        return <Loader />;
+    }
+
+    if (isError) {
+        return (
+            <Typography variant="h4" align="center">
+                Network error! Try later.
+            </Typography>
+        );
+    }
+
+    if (isSuccess && data.Response === "False") {
+        return (
+            <Typography variant="h4" align="center">
+                Movie date not found!
+            </Typography>
+        );
+    }
 
     return (
         <>
@@ -101,7 +122,6 @@ const MovieDescriptionModule: React.FC<MovieDescriptionModuleProps> = ({ movieId
                     )}
                 </Box>
             )}
-            {isError && <>Error</>}
         </>
     );
 };

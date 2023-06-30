@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Box, IconButton, Button, TextField, Fade } from "@mui/material";
-import { SEARCHROUTE, HOMEROUTE, Route } from "../../../../core/Router/utils/routes";
+import { SEARCHROUTE, HOMEROUTE, Route, GENRESROUTE } from "../../../../core/Router/utils/routes";
 import { useToggle } from "../../../../core/hooks/useToggle";
 
 import SideBar from "./components/SideBar";
@@ -15,7 +15,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import CloseIcon from "@mui/icons-material/Close";
 
 /** NavbarRoutes. Don't add private routes.*/
-const navbarRoutes: Route[] = [SEARCHROUTE];
+const navbarRoutes: Route[] = [SEARCHROUTE, GENRESROUTE];
 
 const Navbar: React.FC = () => {
     const [query, setQuery] = useState<string>("");

@@ -1,7 +1,6 @@
-import { useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Box, Button, Typography } from "@mui/material";
-import { MovieApi } from "../../services/Movie";
+import { MovieApi1 } from "../../services/MovieApi1";
 
 import EpisodeDescriptionModule from "../../modules/EpisodeDescriptionModule/EpisodeDescription.module";
 
@@ -13,27 +12,14 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBackIosNew";
 const SeriesEpisodePage: React.FC = () => {
     const params = useParams<{ episodeId: string }>();
 
-    useLayoutEffect(() => {
-        window.scrollTo({ top: 0 });
-    }, []);
-
-    const { currentData, isError } = MovieApi.useGetEpisodeQuery(params.episodeId || "");
-
-    if (isError) {
-        return <Typography align="center">Error</Typography>;
-    }
-
-    if (!currentData) {
-        return <DefaultPageContainer loading />;
-    }
+    const { currentData, isError } = MovieApi1.useGetEpisodeQuery(params.episodeId || "");
 
     return (
         <DefaultPageContainer>
-            {currentData?.Response === "True" ? (
-                <EpisodeDescriptionModule episodeId={params.episodeId || ""} />
-            ) : (
+            <EpisodeDescriptionModule episodeId={params.episodeId || ""} />
+            {(currentData?.Response === "False" || isError) && (
                 <Box>
-                    {/* Fix me */}
+                    {/* Fix me ? */}
                     <Button
                         size="small"
                         color="inherit"
