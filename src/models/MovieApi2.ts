@@ -7,13 +7,13 @@ export interface BaseInfoResponse {
 export interface BaseInfoResultEntity {
     _id: string;
     id: string;
-    ratingsSummary: null | {
+    ratingsSummary?: {
         aggregateRating: null;
         voteCount: number;
         __typename: string;
     };
-    episodes: null | {} /* !!! */;
-    primaryImage: null | {
+    episodes?: {} /* !!! */;
+    primaryImage?: {
         id: string;
         width: number;
         height: number;
@@ -41,14 +41,14 @@ export interface BaseInfoResultEntity {
     originalTitleText: {
         text: string;
     };
-    releaseDate: null | {
+    releaseDate?: {
         day: number;
         month: number;
         year: number;
     };
-    releaseYear: null | {
+    releaseYear?: {
         year: number;
-        endTear: number | null;
+        endTear?: number;
     };
     runtime: {
         seconds: number;
@@ -56,7 +56,7 @@ export interface BaseInfoResultEntity {
     series: null;
     meterRanking: null;
     plot: {
-        plotText: {
+        plotText?: {
             plainText: string;
         };
         language: {

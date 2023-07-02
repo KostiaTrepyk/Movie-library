@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Box, IconButton, Stack, Typography } from "@mui/material";
+import { Box, IconButton, LinearProgress, Stack, Typography } from "@mui/material";
 import { getObjFromSearchParams } from "../../helpers/getObjFromSearchParams";
 import { MovieApi2 } from "../../services/MovieApi2";
 import { objToSearchParams } from "../../helpers/objToSearchParams";
@@ -14,14 +14,11 @@ import MovieList from "./compoonents/MovieList";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
-/* Default */
-const defaultGenre = "Drama";
-
 const GenresPage = () => {
     const params = getObjFromSearchParams(useLocation().search);
 
     const { data, isError, isFetching, isSuccess } = MovieApi2.useGetByGenreQuery({
-        genre: params.genre || defaultGenre,
+        genre: params.genre,
         page: params.page || 1,
     });
 
@@ -29,19 +26,22 @@ const GenresPage = () => {
 
     function genreClickHandler(genre: string | undefined) {
         if (!genre) return;
+
+        if (genre === "all") {
+            navigate(GENRESROUTE.path + "/?&page=" + 1);
+            return;
+        }
         navigate(GENRESROUTE.path + "/?genre=" + genre + "&page=" + 1);
     }
 
     function movieClickHandler(id: string) {
-        console.log(id);
-
         navigate(DESCRIPTIONROUTE.path.replace(":id", id));
     }
 
     /* Pagination */
     function changePage(value: number) {
         const searchParams = objToSearchParams({
-            genre: params.genre || defaultGenre,
+            genre: params.genre,
             page: +params.page + value || 2,
         });
 
@@ -49,10 +49,12 @@ const GenresPage = () => {
     }
 
     return (
-        <DefaultPageContainer loading={isFetching}>
+        <DefaultPageContainer>
             <Box mb={2}>
-                <GenresModule activeGenre={params.genre || defaultGenre} onChange={genreClickHandler} />
+                <GenresModule activeGenre={params.genre || "all"} onChange={genreClickHandler} />
             </Box>
+
+            {isFetching && <LinearProgress />}
 
             {isSuccess && <MovieList movies={data.results} onMovieClick={movieClickHandler} />}
 

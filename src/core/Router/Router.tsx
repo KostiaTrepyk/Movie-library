@@ -14,20 +14,8 @@ const Router: React.FC = () => {
         <HashRouter>
             <Routes>
                 <Route element={<Layout />}>
-                    {publicRoutes.map((route) => (
-                        <Route
-                            path={route.path}
-                            element={
-                                <Suspense fallback={<Loader />}>
-                                    <route.element />
-                                </Suspense>
-                            }
-                            key={route.id}
-                        />
-                    ))}
-
-                    {isAuth &&
-                        privateRoutes.map((route) => (
+                    {publicRoutes.map((route) =>
+                        route.isLazy ? (
                             <Route
                                 path={route.path}
                                 element={
@@ -37,7 +25,27 @@ const Router: React.FC = () => {
                                 }
                                 key={route.id}
                             />
-                        ))}
+                        ) : (
+                            <Route path={route.path} element={route.element} key={route.id} />
+                        )
+                    )}
+
+                    {isAuth &&
+                        privateRoutes.map((route) =>
+                            route.isLazy ? (
+                                <Route
+                                    path={route.path}
+                                    element={
+                                        <Suspense fallback={<Loader />}>
+                                            <route.element />
+                                        </Suspense>
+                                    }
+                                    key={route.id}
+                                />
+                            ) : (
+                                <Route path={route.path} element={route.element} key={route.id} />
+                            )
+                        )}
 
                     {/* 404 */}
                     <Route path="*" element={<PageNotFound />} />

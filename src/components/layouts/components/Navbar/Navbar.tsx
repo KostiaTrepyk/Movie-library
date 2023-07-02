@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Box, IconButton, Button, TextField, Fade } from "@mui/material";
 import { SEARCHROUTE, HOMEROUTE, Route, GENRESROUTE } from "../../../../core/Router/utils/routes";
 import { useToggle } from "../../../../core/hooks/useToggle";
@@ -26,6 +26,9 @@ const Navbar: React.FC = () => {
     const searchFromRef = useRef<HTMLFormElement>(null);
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+    console.log(location.pathname);
 
     function navigateToHome() {
         navigate(HOMEROUTE.path);
@@ -109,11 +112,20 @@ const Navbar: React.FC = () => {
                     </Box>
 
                     {/* PC Links */}
-                    <Box sx={{ display: { lg: "flex", xs: "none" }, ml: 2 }}>
+                    <Box sx={{ display: { lg: "flex", xs: "none" }, gap: 0.5, ml: 2 }}>
                         {navbarRoutes.map((route) => (
                             <Button
                                 key={route.id}
-                                sx={{ color: "white", display: "block" }}
+                                color="inherit"
+                                sx={{
+                                    color: "white",
+                                    display: "block",
+                                    bgcolor:
+                                        location.pathname === route.path ||
+                                        location.pathname === route.path + "/"
+                                            ? "#fff1"
+                                            : "inherit",
+                                }}
                                 onClick={() => {
                                     navigate(route.path);
                                 }}

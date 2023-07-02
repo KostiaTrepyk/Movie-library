@@ -27,6 +27,14 @@ const GenresModule: React.FC<GenresModuleProps> = ({ activeGenre, onChange }) =>
             sx={{ display: "flex", flexWrap: "wrap", gap: 1, justifyContent: "space-between" }}
             onClick={genreClickHandler}
         >
+            <Button
+                value={"all"}
+                color={activeGenre === "all" ? "primary" : "inherit"}
+                variant={activeGenre === "all" ? "contained" : "text"}
+            >
+                All
+            </Button>
+
             {data?.results.map((genre) => (
                 <React.Fragment key={genre}>
                     {genre && (

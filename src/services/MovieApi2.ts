@@ -13,12 +13,14 @@ export const MovieApi2 = createApi({
         },
     }),
     endpoints: (builder) => ({
-        getUpcoming: builder.query<BaseInfoResponse, { page: string }>({
-            query: ({ page }) => ({
-                url: "",
+        getUpcoming: builder.query<BaseInfoResponse, { page: string | number; genre: string }>({
+            query: ({ page, genre }) => ({
+                url: "/titles/x/upcoming",
                 params: {
                     page,
                     info: "base_info",
+                    titleType: "movie",
+                    genre,
                 },
             }),
         }),
@@ -32,7 +34,7 @@ export const MovieApi2 = createApi({
                 params: {
                     year,
                     page,
-                    titleType: type,
+                    titleType: type || "movie",
                     genre,
                     info: "base_info",
                     /*  sort: "year.decr", */

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
     Box,
     Divider,
@@ -25,6 +25,7 @@ interface SideBarProps {
 
 const SideBar: React.FC<SideBarProps> = ({ routes, open, onOpen, onClose }) => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     function LinkClickHandler(path: string) {
         navigate(path);
@@ -70,7 +71,16 @@ const SideBar: React.FC<SideBarProps> = ({ routes, open, onOpen, onClose }) => {
             <List sx={{ width: "min(100vw, 220px)" }}>
                 {routes.map((route) => (
                     <ListItem key={route.id}>
-                        <ListItemButton sx={{ borderRadius: 1 }} onClick={() => LinkClickHandler(route.path)}>
+                        <ListItemButton
+                            sx={{
+                                borderRadius: 1,
+                                bgcolor:
+                                    location.pathname === route.path || location.pathname === route.path + "/"
+                                        ? "#fff1"
+                                        : "inherit",
+                            }}
+                            onClick={() => LinkClickHandler(route.path)}
+                        >
                             <ListItemIcon>{route.icon}</ListItemIcon>
                             {route.name}
                         </ListItemButton>
