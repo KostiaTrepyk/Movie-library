@@ -28,8 +28,6 @@ const Navbar: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    console.log(location.pathname);
-
     function navigateToHome() {
         navigate(HOMEROUTE.path);
     }

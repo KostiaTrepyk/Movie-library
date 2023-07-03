@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { Box, Typography } from "@mui/material";
 import { grey, orange } from "@mui/material/colors";
 import { BaseInfoResultEntity } from "../../../models/MovieApi2";
@@ -7,7 +8,7 @@ interface MovieItemProps {
     onClick: (moiveId: string) => void;
 }
 
-const MovieListItem: React.FC<MovieItemProps> = ({ movieData, onClick }) => {
+const MovieListItem: React.FC<MovieItemProps> = forwardRef(({ movieData, onClick }, ref) => {
     return (
         <Box
             key={movieData._id}
@@ -17,12 +18,9 @@ const MovieListItem: React.FC<MovieItemProps> = ({ movieData, onClick }) => {
                 py: 2,
                 cursor: "pointer",
                 width: "min(100%, 340px)",
-                transition: "0.3s transform",
-                "&:hover": {
-                    transform: "scale(95%)",
-                },
             }}
             onClick={() => onClick(movieData.id)}
+            ref={ref}
         >
             <img
                 src={
@@ -62,6 +60,6 @@ const MovieListItem: React.FC<MovieItemProps> = ({ movieData, onClick }) => {
             </Box>
         </Box>
     );
-};
+});
 
 export default MovieListItem;

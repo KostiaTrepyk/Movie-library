@@ -17,6 +17,7 @@ const SeriesEpisodePage: React.FC = () => {
     return (
         <DefaultPageContainer>
             <EpisodeDescriptionModule episodeId={params.episodeId || ""} />
+            
             {(currentData?.Response === "False" || isError) && (
                 <Box>
                     {/* Fix me ? */}

@@ -17,7 +17,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 const GenresPage = () => {
     const params = getObjFromSearchParams(useLocation().search);
 
-    const { data, isError, isFetching, isSuccess } = MovieApi2.useGetByGenreQuery({
+    const { currentData, isError, isFetching } = MovieApi2.useGetByGenreQuery({
         genre: params.genre,
         page: params.page || 1,
     });
@@ -28,10 +28,10 @@ const GenresPage = () => {
         if (!genre) return;
 
         if (genre === "all") {
-            navigate(GENRESROUTE.path + "/?&page=" + 1);
+            navigate(GENRESROUTE.path + objToSearchParams({ page: 1 }));
             return;
         }
-        navigate(GENRESROUTE.path + "/?genre=" + genre + "&page=" + 1);
+        navigate(GENRESROUTE.path + objToSearchParams({ genre, page: 1 }));
     }
 
     function movieClickHandler(id: string) {
@@ -56,7 +56,7 @@ const GenresPage = () => {
 
             {isFetching && <LinearProgress />}
 
-            {isSuccess && <MovieList movies={data.results} onMovieClick={movieClickHandler} />}
+            {currentData && <MovieList movies={currentData.results} onMovieClick={movieClickHandler} />}
 
             {isError && (
                 <Typography variant="h4" align="center" sx={{ mt: 3 }}>
@@ -65,7 +65,7 @@ const GenresPage = () => {
             )}
 
             {/*  Pagination ? */}
-            {data && !isError && (
+            {currentData && !isError && (
                 <Stack direction="row" spacing={2} justifyContent={"center"} mt={2}>
                     <IconButton
                         disabled={isFetching || isError || +params.page <= 1 || !params.page}
@@ -73,7 +73,10 @@ const GenresPage = () => {
                     >
                         <ArrowBackIosNewIcon />
                     </IconButton>
-                    <IconButton disabled={isFetching || isError || !data?.next} onClick={() => changePage(1)}>
+                    <IconButton
+                        disabled={isFetching || isError || !currentData?.next}
+                        onClick={() => changePage(1)}
+                    >
                         <ArrowForwardIosIcon />
                     </IconButton>
                 </Stack>

@@ -19,7 +19,6 @@ import { objToSearchParams } from "../../helpers/objToSearchParams";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 
-
 interface SearchModuleProps {
     isLoading?: boolean;
 }
@@ -28,7 +27,6 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading }) => {
     const [title, setTitle] = useState<string>("");
     const [year, setYear] = useState<string>("");
     const [type, setType] = useState<string>("");
-
 
     const navigate = useNavigate();
 
@@ -132,7 +130,7 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading }) => {
                             value={type}
                             onChange={(e) => setType(() => e.target.value)}
                         >
-                            <MenuItem value={""}>Empty</MenuItem>
+                            <MenuItem value={""}>All</MenuItem>
                             <MenuItem value={"movie"}>Movie</MenuItem>
                             <MenuItem value={"series"}>Series</MenuItem>
                         </Select>

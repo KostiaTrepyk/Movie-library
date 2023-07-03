@@ -5,7 +5,7 @@ const HomePage: React.FC = () => {
     return (
         <>
             <GreetingSection />
-            
+
             <UpcomingSection />
         </>
     );
