@@ -29,12 +29,15 @@ const MovieItem: React.FC<MovieItemProps> = forwardRef(({ movieData, onClick }, 
                 }
                 alt={movieData.Title}
                 style={{
+                    backgroundColor: grey[800],
                     width: "100%",
                     borderRadius: "15px 15px 10px 10px",
                     aspectRatio: 9 / 14,
                     objectFit: "cover",
                     backgroundRepeat: "no-repeat",
+                    imageRendering: "crisp-edges",
                 }}
+                decoding="async"
                 loading="lazy"
             />
 

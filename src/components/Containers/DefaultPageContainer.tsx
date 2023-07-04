@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import { Box, Paper } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
+import bgImage from "../../assets/defContainer_bg-min.webp";
+
 const DefaultPageContainer = ({ children }: PropsWithChildren) => {
     const location = useLocation();
 
@@ -18,8 +20,7 @@ const DefaultPageContainer = ({ children }: PropsWithChildren) => {
                 mt: "64px",
 
                 bgcolor: grey[900],
-                backgroundImage:
-                    "url(https://www.teahub.io/photos/full/220-2205714_get-the-latest-movies-data-src-kodi-tv.jpg)",
+                backgroundImage: `url(${bgImage})`,
 
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",

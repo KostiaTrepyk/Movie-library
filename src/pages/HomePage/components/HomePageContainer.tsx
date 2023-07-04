@@ -2,6 +2,8 @@ import { PropsWithChildren } from "react";
 import { Box, LinearProgress } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
+import bgImg from "../../../assets/homepage_gackground.webp";
+
 interface LayoutContainerProps {
     loading?: boolean;
 }
@@ -16,8 +18,7 @@ const HomePageContainer = ({ children, loading = false }: PropsWithChildren & La
                     paddingTop: "64px",
 
                     bgcolor: "#0002",
-                    backgroundImage:
-                        "url(https://daily.kellogg.edu/wp-content/uploads/2018/08/film-interpretation.jpg)",
+                    backgroundImage: `url(${bgImg})`,
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
                     backgroundPositionX: "35%",
