@@ -1,4 +1,5 @@
-import { MovieApi1 } from "../../services/MovieApi1";
+import React, { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 import {
     Box,
     IconButton,
@@ -9,11 +10,12 @@ import {
     TableRow,
     Typography,
 } from "@mui/material";
-import React, { Fragment } from "react";
-import Loader from "./components/Loader";
 import { motion } from "framer-motion";
+import { MovieApi1 } from "../../services/MovieApi1";
+import Loader from "./components/Loader";
 import { LocalstorageKeys } from "../../utils/localstorage_keys";
-import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "../../core/hooks/useLocalStorage";
+import { detectMob } from "../../helpers/detectMobile";
 
 /* Icons */
 import ArrowBack from "@mui/icons-material/ArrowBackIosNew";
@@ -64,12 +66,12 @@ const plotAnimation = {
 const MBox = motion(Box);
 const MTypography = motion(Typography);
 
-const isMobile = JSON.parse(localStorage.getItem(LocalstorageKeys.isMbile) || "");
 interface MovieDescriptionModuleProps {
     movieId: string;
 }
 
 const MovieDescriptionModule: React.FC<MovieDescriptionModuleProps> = ({ movieId }) => {
+    const [isMobile] = useLocalStorage(LocalstorageKeys.isMbile, detectMob());
     const { currentData, isError, isSuccess, isFetching } = MovieApi1.useGetByIdQuery(movieId, {});
 
     const navigate = useNavigate();

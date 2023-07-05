@@ -13,6 +13,8 @@ import {
 import { motion } from "framer-motion";
 import { LocalstorageKeys } from "../../utils/localstorage_keys";
 import { MovieApi1 } from "../../services/MovieApi1";
+import { useLocalStorage } from "../../core/hooks/useLocalStorage";
+import { detectMob } from "../../helpers/detectMobile";
 
 import Loader from "./components/Loader";
 
@@ -65,14 +67,13 @@ const plotAnimation = {
 const MBox = motion(Box);
 const MTypography = motion(Typography);
 
-const isMobile = JSON.parse(localStorage.getItem(LocalstorageKeys.isMbile) || "");
-
 interface EpisodeDescriptionModuleProps {
     episodeId: string;
 }
 
 const EpisodeDescriptionModule: React.FC<EpisodeDescriptionModuleProps> = ({ episodeId }) => {
     const { currentData, isLoading } = MovieApi1.useGetEpisodeQuery(episodeId);
+    const [isMobile] = useLocalStorage(LocalstorageKeys.isMbile, detectMob());
 
     const navigate = useNavigate();
 

@@ -5,6 +5,8 @@ import { MovieApi1 } from "../../services/MovieApi1";
 import { getObjFromSearchParams } from "../../helpers/getObjFromSearchParams";
 import { LocalstorageKeys } from "../../utils/localstorage_keys";
 import { objToSearchParams } from "../../helpers/objToSearchParams";
+import { useLocalStorage } from "../../core/hooks/useLocalStorage";
+import { detectMob } from "../../helpers/detectMobile";
 
 import SearchModule from "../../modules/SearchModule/Search.module";
 
@@ -19,7 +21,7 @@ type Query = {
 };
 
 const SearchPage: React.FC = () => {
-    const isMobile = JSON.parse(localStorage.getItem(LocalstorageKeys.isMbile) || "");
+    const [isMobile] = useLocalStorage(LocalstorageKeys.isMbile, detectMob());
 
     const navigate = useNavigate();
     const location = useLocation();
