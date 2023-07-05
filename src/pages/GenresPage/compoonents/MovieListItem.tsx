@@ -26,7 +26,7 @@ const MovieListItem: React.FC<MovieItemProps> = forwardRef(({ movieData, onClick
                 src={
                     movieData.primaryImage &&
                     movieData.primaryImage?.url &&
-                    movieData.primaryImage?.width < 4500 /* ??? */
+                    movieData.primaryImage?.width < 1500 /* ??? 8000:11000 img ??? */
                         ? movieData.primaryImage?.url
                         : "https://thumbs.dreamstime.com/b/ikona-paska-filmu-film-programu-word-wyizolowany-na-bia%C5%82ym-tle-proste-logo-wektorowe-230410953.jpg"
                 }
