@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react";
 import { Box, LinearProgress } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import bgImg from "../../../assets/homepage_gackground.webp";
+import bgImg from "../../../assets/homepage_bg.webp";
 
 interface LayoutContainerProps {
     loading?: boolean;

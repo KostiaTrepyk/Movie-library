@@ -11,10 +11,8 @@ import {
     Typography,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import { LocalstorageKeys } from "../../utils/localstorage_keys";
+import { UserContext } from "../../core/contexts/User/UserContext";
 import { MovieApi1 } from "../../services/MovieApi1";
-import { useLocalStorage } from "../../core/hooks/useLocalStorage";
-import { detectMob } from "../../helpers/detectMobile";
 
 import Loader from "./components/Loader";
 
@@ -73,7 +71,6 @@ interface EpisodeDescriptionModuleProps {
 
 const EpisodeDescriptionModule: React.FC<EpisodeDescriptionModuleProps> = ({ episodeId }) => {
     const { currentData, isLoading } = MovieApi1.useGetEpisodeQuery(episodeId);
-    const [isMobile] = useLocalStorage(LocalstorageKeys.isMbile, detectMob());
 
     const navigate = useNavigate();
 
@@ -97,11 +94,17 @@ const EpisodeDescriptionModule: React.FC<EpisodeDescriptionModuleProps> = ({ epi
         <Box>
             {/* Title */}
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "start" }}>
-                {!isMobile && (
-                    <IconButton onClick={() => navigate(-1)} size={"large"}>
-                        <ArrowBack />
-                    </IconButton>
-                )}
+                <UserContext.Consumer>
+                    {({ deviceType }) => (
+                        <>
+                            {deviceType === "PC" && (
+                                <IconButton onClick={() => navigate(-1)} size={"large"}>
+                                    <ArrowBack />
+                                </IconButton>
+                            )}
+                        </>
+                    )}
+                </UserContext.Consumer>
 
                 <MTypography
                     initial="hidden"

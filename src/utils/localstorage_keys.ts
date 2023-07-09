@@ -1,3 +1,3 @@
 export enum LocalstorageKeys {
-    isMbile = "isMobile",
+    isMobile = "isMobile",
 }

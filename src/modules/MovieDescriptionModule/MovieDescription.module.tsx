@@ -11,11 +11,10 @@ import {
     Typography,
 } from "@mui/material";
 import { motion } from "framer-motion";
+import { UserContext } from "../../core/contexts/User/UserContext";
 import { MovieApi1 } from "../../services/MovieApi1";
+
 import Loader from "./components/Loader";
-import { LocalstorageKeys } from "../../utils/localstorage_keys";
-import { useLocalStorage } from "../../core/hooks/useLocalStorage";
-import { detectMob } from "../../helpers/detectMobile";
 
 /* Icons */
 import ArrowBack from "@mui/icons-material/ArrowBackIosNew";
@@ -71,7 +70,6 @@ interface MovieDescriptionModuleProps {
 }
 
 const MovieDescriptionModule: React.FC<MovieDescriptionModuleProps> = ({ movieId }) => {
-    const [isMobile] = useLocalStorage(LocalstorageKeys.isMbile, detectMob());
     const { currentData, isError, isSuccess, isFetching } = MovieApi1.useGetByIdQuery(movieId, {});
 
     const navigate = useNavigate();
@@ -126,11 +124,17 @@ const MovieDescriptionModule: React.FC<MovieDescriptionModuleProps> = ({ movieId
                         variants={titleAnimation}
                         sx={{ display: "flex", justifyContent: "space-between", alignItems: "start" }}
                     >
-                        {!isMobile && (
-                            <IconButton onClick={() => navigate(-1)} size={"large"}>
-                                <ArrowBack />
-                            </IconButton>
-                        )}
+                        <UserContext.Consumer>
+                            {({ deviceType }) => (
+                                <>
+                                    {deviceType === "PC" && (
+                                        <IconButton onClick={() => navigate(-1)} size={"large"}>
+                                            <ArrowBack />
+                                        </IconButton>
+                                    )}
+                                </>
+                            )}
+                        </UserContext.Consumer>
 
                         <MTypography
                             variants={titleAnimation}

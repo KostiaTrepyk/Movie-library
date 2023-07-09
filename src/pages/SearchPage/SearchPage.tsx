@@ -3,10 +3,8 @@ import { Box, Pagination, Typography } from "@mui/material";
 import { DESCRIPTIONROUTE } from "../../core/Router/utils/routes";
 import { MovieApi1 } from "../../services/MovieApi1";
 import { getObjFromSearchParams } from "../../helpers/getObjFromSearchParams";
-import { LocalstorageKeys } from "../../utils/localstorage_keys";
 import { objToSearchParams } from "../../helpers/objToSearchParams";
-import { useLocalStorage } from "../../core/hooks/useLocalStorage";
-import { detectMob } from "../../helpers/detectMobile";
+import { UserContext } from "../../core/contexts/User/UserContext";
 
 import SearchModule from "../../modules/SearchModule/Search.module";
 
@@ -21,8 +19,6 @@ type Query = {
 };
 
 const SearchPage: React.FC = () => {
-    const [isMobile] = useLocalStorage(LocalstorageKeys.isMbile, detectMob());
-
     const navigate = useNavigate();
     const location = useLocation();
     const query: Query = getObjFromSearchParams(location.search);
@@ -83,13 +79,17 @@ const SearchPage: React.FC = () => {
             )}
 
             {data?.Search && (
-                <Pagination
-                    count={Math.ceil(Number(data?.totalResults) / 10 || 0)}
-                    page={query?.page ? +query.page : 1}
-                    onChange={changePageHandler}
-                    sx={{ display: "flex", justifyContent: "center" }}
-                    size={isMobile ? "small" : "large"}
-                />
+                <UserContext.Consumer>
+                    {({ deviceType }) => (
+                        <Pagination
+                            count={Math.ceil(Number(data?.totalResults) / 10 || 0)}
+                            page={query?.page ? +query.page : 1}
+                            onChange={changePageHandler}
+                            sx={{ display: "flex", justifyContent: "center" }}
+                            size={deviceType === "PC" ? "large" : "small"}
+                        />
+                    )}
+                </UserContext.Consumer>
             )}
         </DefaultPageContainer>
     );
