@@ -23,12 +23,11 @@ const GreetingSectionContainer = ({
                     bgcolor: "#0002",
                     backgroundImage: `url(${bgImg})`,
                     backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
+                    backgroundSize: { md: "cover", xs: "auto 100lvh" },
                     backgroundPositionX: "35%",
                     backgroundPositionY: "0%",
                     backgroundAttachment: "fixed",
                     backgroundBlendMode: "darken",
-                    objectFit: "cover",
                     printColorAdjust: "exact",
                 }}
             >
