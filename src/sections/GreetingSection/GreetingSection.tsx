@@ -2,10 +2,10 @@ import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Stack, Typography, TextField, IconButton } from "@mui/material";
 import { motion } from "framer-motion";
-import { SEARCHROUTE } from "../../../core/Router/utils/routes";
-import { objToSearchParams } from "../../../helpers/objToSearchParams";
+import { SEARCHROUTE } from "../../core/Router/utils/routes";
+import { objToSearchParams } from "../../helpers/objToSearchParams";
 
-import HomePageContainer from "../components/HomePageContainer";
+import GreetingSectionContainer from "./components/GreetingSectionContainer";
 
 /* Icons */
 import SearchIcon from "@mui/icons-material/Search";
@@ -40,7 +40,7 @@ const GreetingSection = () => {
     }
 
     return (
-        <HomePageContainer>
+        <GreetingSectionContainer>
             <MBox
                 initial="hidden"
                 whileInView="visible"
@@ -102,7 +102,7 @@ const GreetingSection = () => {
                     </MBox>
                 </Stack>
             </MBox>
-        </HomePageContainer>
+        </GreetingSectionContainer>
     );
 };
 

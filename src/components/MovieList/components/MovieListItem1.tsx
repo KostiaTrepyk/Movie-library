@@ -8,7 +8,7 @@ interface MovieItemProps {
     onClick: (moiveId: string) => void;
 }
 
-const MovieItem: React.FC<MovieItemProps> = forwardRef(({ movieData, onClick }, ref) => {
+const MovieListItem1: React.FC<MovieItemProps> = forwardRef(({ movieData, onClick }, ref) => {
     return (
         <Box
             ref={ref}
@@ -58,4 +58,4 @@ const MovieItem: React.FC<MovieItemProps> = forwardRef(({ movieData, onClick }, 
     );
 });
 
-export default MovieItem;
+export default MovieListItem1;

@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import {
     Box,
+    Button,
     IconButton,
     Table,
     TableBody,
@@ -18,6 +19,7 @@ import Loader from "./components/Loader";
 
 /* Icons */
 import ArrowBack from "@mui/icons-material/ArrowBackIosNew";
+import ArrowBackIcon from "@mui/icons-material/ArrowBackIosNew";
 
 /* Framer motion animations */
 const titleAnimation = {
@@ -65,12 +67,12 @@ const plotAnimation = {
 const MBox = motion(Box);
 const MTypography = motion(Typography);
 
-interface EpisodeDescriptionModuleProps {
+interface EpisodeDescriptionSectionProps {
     episodeId: string;
 }
 
-const EpisodeDescriptionModule: React.FC<EpisodeDescriptionModuleProps> = ({ episodeId }) => {
-    const { currentData, isLoading } = MovieApi1.useGetEpisodeQuery(episodeId);
+const EpisodeDescriptionSection: React.FC<EpisodeDescriptionSectionProps> = ({ episodeId }) => {
+    const { currentData, isFetching, isError } = MovieApi1.useGetEpisodeQuery(episodeId);
 
     const navigate = useNavigate();
 
@@ -86,19 +88,60 @@ const EpisodeDescriptionModule: React.FC<EpisodeDescriptionModuleProps> = ({ epi
         { name: "Awards", value: currentData?.Awards },
     ];
 
-    if (isLoading) {
+    if (isFetching) {
         return <Loader />;
     }
 
+    if (isError) {
+        return (
+            <Box>
+                {/* Fix me ? */}
+                <IconButton
+                    size="large"
+                    color="inherit"
+                    onClick={() => {
+                        navigate(-1);
+                    }}
+                >
+                    <ArrowBackIcon />
+                </IconButton>
+                <Typography variant="h4" align="center">
+                    Server Error
+                </Typography>
+            </Box>
+        );
+    }
+
+    if (currentData?.Response === "False") {
+        return (
+            <Box>
+                {/* Fix me ? */}
+                <Button
+                    size="large"
+                    color="inherit"
+                    onClick={() => {
+                        console.log("Fix me");
+                    }}
+                >
+                    <ArrowBackIcon sx={{ mr: 1 }} />
+                    <Typography variant="h6">Back</Typography>
+                </Button>
+                <Typography variant="h4" align="center">
+                    Episode not found
+                </Typography>
+            </Box>
+        );
+    }
+
     return (
-        <Box>
+        <>
             {/* Title */}
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "start" }}>
                 <UserContext.Consumer>
                     {({ deviceType }) => (
                         <>
                             {deviceType === "PC" && (
-                                <IconButton onClick={() => navigate(-1)} size={"large"}>
+                                <IconButton onClick={() => navigate(-1)} size="large">
                                     <ArrowBack />
                                 </IconButton>
                             )}
@@ -201,8 +244,8 @@ const EpisodeDescriptionModule: React.FC<EpisodeDescriptionModuleProps> = ({ epi
                     <Typography variant="body1">Storyline: {currentData.Plot}</Typography>
                 </MBox>
             )}
-        </Box>
+        </>
     );
 };
 
-export default EpisodeDescriptionModule;
+export default EpisodeDescriptionSection;

@@ -65,11 +65,11 @@ const plotAnimation = {
 const MBox = motion(Box);
 const MTypography = motion(Typography);
 
-interface MovieDescriptionModuleProps {
+interface MovieDescriptionSectionProps {
     movieId: string;
 }
 
-const MovieDescriptionModule: React.FC<MovieDescriptionModuleProps> = ({ movieId }) => {
+const MovieDescriptionSection: React.FC<MovieDescriptionSectionProps> = ({ movieId }) => {
     const { currentData, isError, isSuccess, isFetching } = MovieApi1.useGetByIdQuery(movieId, {});
 
     const navigate = useNavigate();
@@ -114,8 +114,8 @@ const MovieDescriptionModule: React.FC<MovieDescriptionModuleProps> = ({ movieId
 
     return (
         <>
-            {currentData?.Response === "True" && (
-                <Box>
+            {isSuccess && currentData.Response === "True" && (
+                <Box sx={{ overflowX: "hidden" }}>
                     {/* Title */}
                     <MBox
                         initial="hidden"
@@ -233,4 +233,4 @@ const MovieDescriptionModule: React.FC<MovieDescriptionModuleProps> = ({ movieId
     );
 };
 
-export default MovieDescriptionModule;
+export default MovieDescriptionSection;

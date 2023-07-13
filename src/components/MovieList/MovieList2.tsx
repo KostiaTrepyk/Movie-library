@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
 import { motion } from "framer-motion";
-import { BaseInfoResultEntity } from "../../../models/MovieApi2";
+import { BaseInfoResultEntity } from "../../models/MovieApi2";
 
-import MovieListItem from "./MovieListItem";
+import MovieListItem from "./components/MovieListItem2";
 
 /* Framer motion animations */
 const itemAnnimation = {

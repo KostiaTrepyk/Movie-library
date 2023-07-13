@@ -1,5 +1,5 @@
-import UpcomingSection from "./sections/UpcomingSection";
-import GreetingSection from "./sections/GreetingSection";
+import GreetingSection from "../../sections/GreetingSection/GreetingSection";
+import UpcomingSection from "../../sections/UpcomingSection/UpcomingSection";
 
 const HomePage: React.FC = () => {
     return (

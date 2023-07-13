@@ -8,7 +8,7 @@ import { UserContext } from "../../core/contexts/User/UserContext";
 
 import SearchModule from "../../modules/SearchModule/Search.module";
 
-import MovieList from "../../components/MovieList/MovieList";
+import MovieList from "../../components/MovieList/MovieList1";
 import DefaultPageContainer from "../../components/Containers/DefaultPageContainer";
 
 type Query = {
@@ -60,7 +60,12 @@ const SearchPage: React.FC = () => {
         <DefaultPageContainer>
             {/* Search module */}
             <Box sx={{ mb: 2, width: "95%", marginInline: "auto" }}>
-                <SearchModule isLoading={isFetching} />
+                {/* # FIX ME !key! */}
+                <SearchModule
+                    isLoading={isFetching}
+                    data={query}
+                    key={objToSearchParams({ ...query, page: 0 })}
+                />
             </Box>
 
             {/* Films not found */}

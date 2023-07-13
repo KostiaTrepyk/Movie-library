@@ -1,8 +1,6 @@
 import React from "react";
-import { Button, Box } from "@mui/material";
+import { Button, Box, Skeleton } from "@mui/material";
 import { MovieApi2 } from "../../services/MovieApi2";
-
-import Loader from "./components/Loader";
 
 interface GenresModuleProps {
     activeGenre?: string;
@@ -19,7 +17,13 @@ const GenresModule: React.FC<GenresModuleProps> = ({ activeGenre, onChange }) =>
     }
 
     if (isFetching) {
-        return <Loader />;
+        return (
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
+                <Skeleton variant="text" height={30} />
+                <Skeleton variant="text" height={30} />
+                <Skeleton variant="text" height={30} />
+            </Box>
+        );
     }
 
     return (

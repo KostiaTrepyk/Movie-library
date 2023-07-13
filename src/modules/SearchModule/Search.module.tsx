@@ -21,12 +21,13 @@ import ClearIcon from "@mui/icons-material/Clear";
 
 interface SearchModuleProps {
     isLoading?: boolean;
+    data?: { title?: string; year?: string; type?: string };
 }
 
-const SearchModule: React.FC<SearchModuleProps> = ({ isLoading }) => {
-    const [title, setTitle] = useState<string>("");
-    const [year, setYear] = useState<string>("");
-    const [type, setType] = useState<string>("");
+const SearchModule: React.FC<SearchModuleProps> = ({ isLoading, data }) => {
+    const [title, setTitle] = useState<string>(data?.title || "");
+    const [year, setYear] = useState<string>(data?.year || "");
+    const [type, setType] = useState<string>(data?.type || "");
 
     const navigate = useNavigate();
 
@@ -129,6 +130,7 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading }) => {
                             sx={{ px: 1 }}
                             value={type}
                             onChange={(e) => setType(() => e.target.value)}
+                            MenuProps={{ disableScrollLock: true }}
                         >
                             <MenuItem value={""}>All</MenuItem>
                             <MenuItem value={"movie"}>Movie</MenuItem>

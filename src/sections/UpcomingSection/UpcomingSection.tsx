@@ -10,11 +10,10 @@ import {
     Skeleton,
     CircularProgress,
 } from "@mui/material";
-import { MovieApi2 } from "../../../services/MovieApi2";
-
-import MovieList from "../../GenresPage/compoonents/MovieList";
-import { DESCRIPTIONROUTE } from "../../../core/Router/utils/routes";
 import { useNavigate } from "react-router-dom";
+import MovieList from "../../components/MovieList/MovieList2";
+import { DESCRIPTIONROUTE } from "../../core/Router/utils/routes";
+import { MovieApi2 } from "../../services/MovieApi2";
 
 /* Default */
 const defaultGenre = "Drama";

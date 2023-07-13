@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { motion } from "framer-motion";
 import { ShortMovieData } from "../../models/MovieApi1";
 
-import MovieItem from "./components/MovieItem";
+import MovieListItem1 from "./components/MovieListItem1";
 
 /* Framer motion animations */
 const itemAnnimation = {
@@ -15,7 +15,7 @@ const itemAnnimation = {
 };
 
 /* Framer motion components */
-const MMovieItem = motion(MovieItem);
+const MMovieListItem1 = motion(MovieListItem1);
 
 interface MovieListProps {
     movies: ShortMovieData[];
@@ -33,7 +33,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies, onMovieClick }) => {
             }}
         >
             {movies.map((movie) => (
-                <MMovieItem
+                <MMovieListItem1
                     key={movie.imdbID}
                     onClick={onMovieClick}
                     movieData={movie}

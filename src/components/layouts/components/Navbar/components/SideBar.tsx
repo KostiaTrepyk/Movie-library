@@ -39,6 +39,7 @@ const SideBar: React.FC<SideBarProps> = ({ routes, open, onOpen, onClose }) => {
             onClose={onClose}
             disableSwipeToOpen={false}
             swipeAreaWidth={30}
+            disableScrollLock
         >
             {/* DrawerHead */}
             <Box

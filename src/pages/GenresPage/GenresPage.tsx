@@ -8,7 +8,7 @@ import { DESCRIPTIONROUTE, GENRESROUTE } from "../../core/Router/utils/routes";
 import GenresModule from "../../modules/GenresModule/Genres.module";
 
 import DefaultPageContainer from "../../components/Containers/DefaultPageContainer";
-import MovieList from "./compoonents/MovieList";
+import MovieList from "../../components/MovieList/MovieList2";
 
 // Icons
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";

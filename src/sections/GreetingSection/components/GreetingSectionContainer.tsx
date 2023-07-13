@@ -4,11 +4,14 @@ import { grey } from "@mui/material/colors";
 
 import bgImg from "../../../assets/homepage_bg.webp";
 
-interface LayoutContainerProps {
+interface GreetingSectionContainerProps {
     loading?: boolean;
 }
 
-const HomePageContainer = ({ children, loading = false }: PropsWithChildren & LayoutContainerProps) => {
+const GreetingSectionContainer = ({
+    children,
+    loading = false,
+}: PropsWithChildren & GreetingSectionContainerProps) => {
     return (
         <Box sx={{ bgcolor: grey[900] }}>
             <Box
@@ -36,4 +39,4 @@ const HomePageContainer = ({ children, loading = false }: PropsWithChildren & La
     );
 };
 
-export default HomePageContainer;
+export default GreetingSectionContainer;

@@ -27,7 +27,6 @@ const DefaultPageContainer = ({ children }: PropsWithChildren) => {
                 backgroundPositionX: "50%",
                 backgroundPositionY: "55%",
                 backgroundAttachment: "fixed",
-                objectFit: "cover",
             }}
         >
             <Box
@@ -39,7 +38,7 @@ const DefaultPageContainer = ({ children }: PropsWithChildren) => {
                     },
                     width: { md: "83%" },
                     marginInline: "auto",
-                    minHeight: `calc(100vh - 64px)`,
+                    minHeight: `calc(100svh - 64px)`,
                     pt: { md: 4, xs: 2 },
                     paddingInline: { lg: 7, xs: "max(3%, 16px)" },
                     pb: { md: 5, xs: 3 },

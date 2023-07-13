@@ -98,7 +98,6 @@ const Avatar: React.FC = () => {
 
             <Menu
                 sx={{ mt: "45px" }}
-                id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
                     vertical: "top",
@@ -111,6 +110,7 @@ const Avatar: React.FC = () => {
                 }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
+                disableScrollLock
             >
                 {settings.map((setting) => {
                     return (
