@@ -40,10 +40,8 @@ interface SeasonsSectionProps {
 
 const SeasonsSection: React.FC<SeasonsSectionProps> = ({ movieId }) => {
     const [choosedSeason, setChoosedSeason] = useState<number>(1);
-    const { currentData, data, isLoading, isError, isFetching, isSuccess } = MovieApi1.useGetSeasonQuery(
-        { movieId, season: choosedSeason },
-        {}
-    );
+    const { currentData, data, isLoading, isError, isFetching, isSuccess } =
+        MovieApi1.useGetSeasonQuery({ movieId, season: choosedSeason }, {});
 
     const navigate = useNavigate();
 
@@ -52,13 +50,20 @@ const SeasonsSection: React.FC<SeasonsSectionProps> = ({ movieId }) => {
     }
 
     function navigateToEpisode(episodeId: string) {
-        navigate(SERIESEPISODEROUTE.path.replace(":id", movieId).replace(":episodeId", episodeId));
+        navigate(
+            SERIESEPISODEROUTE.path
+                .replace(":id", movieId)
+                .replace(":episodeId", episodeId)
+        );
     }
 
     if (isLoading) {
         return (
             <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <Skeleton variant="rounded" sx={{ width: "70%", maxWidth: "490px", height: 56 }} />
+                <Skeleton
+                    variant="rounded"
+                    sx={{ width: "70%", maxWidth: "490px", height: 56 }}
+                />
             </Box>
         );
     }
@@ -69,11 +74,28 @@ const SeasonsSection: React.FC<SeasonsSectionProps> = ({ movieId }) => {
 
     return (
         <Box>
-            <Box sx={{ position: "relative", display: "flex", justifyContent: "center" }}>
-                <FormControl fullWidth disabled={!currentData} sx={{ width: "70%", maxWidth: "490px" }}>
+            <Box
+                sx={{
+                    position: "relative",
+                    display: "flex",
+                    justifyContent: "center",
+                }}
+            >
+                <FormControl
+                    fullWidth
+                    disabled={!currentData}
+                    sx={{ width: "70%", maxWidth: "490px" }}
+                >
                     <InputLabel>Season</InputLabel>
-                    <Select value={choosedSeason} label="Season" onChange={changeSeasonHandler}>
-                        {isSuccess && data.Episodes && data.Episodes.length > 0 ? (
+                    <Select
+                        value={choosedSeason}
+                        label="Season"
+                        onChange={changeSeasonHandler}
+                        MenuProps={{ disableScrollLock: true }}
+                    >
+                        {isSuccess &&
+                        data.Episodes &&
+                        data.Episodes.length > 0 ? (
                             createMenuItems(Number(data?.totalSeasons))
                         ) : (
                             <MenuItem value={1}>Seasons not found</MenuItem>
@@ -96,7 +118,15 @@ const SeasonsSection: React.FC<SeasonsSectionProps> = ({ movieId }) => {
             </Box>
 
             {data?.Response === "True" && (
-                <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 3, py: 2 }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "center",
+                        gap: 3,
+                        py: 2,
+                    }}
+                >
                     {data?.Episodes.map((episode) => (
                         <MPaper
                             initial="initial"
@@ -114,13 +144,28 @@ const SeasonsSection: React.FC<SeasonsSectionProps> = ({ movieId }) => {
                             onClick={() => navigateToEpisode(episode.imdbID)}
                             elevation={5}
                         >
-                            <Typography sx={{ fontSize: { sm: "1rem", xs: "0.75rem" }, textAlign: "center" }}>
+                            <Typography
+                                sx={{
+                                    fontSize: { sm: "1rem", xs: "0.75rem" },
+                                    textAlign: "center",
+                                }}
+                            >
                                 {episode.Episode}. {episode.Title}
                             </Typography>
-                            <Typography sx={{ fontSize: { sm: "1rem", xs: "0.75rem" }, textAlign: "center" }}>
+                            <Typography
+                                sx={{
+                                    fontSize: { sm: "1rem", xs: "0.75rem" },
+                                    textAlign: "center",
+                                }}
+                            >
                                 Released: {episode.Released}
                             </Typography>
-                            <Typography sx={{ fontSize: { sm: "1rem", xs: "0.75rem" }, textAlign: "center" }}>
+                            <Typography
+                                sx={{
+                                    fontSize: { sm: "1rem", xs: "0.75rem" },
+                                    textAlign: "center",
+                                }}
+                            >
                                 Rating: {episode.imdbRating}
                             </Typography>
                         </MPaper>
@@ -138,7 +183,10 @@ function createMenuItems(count: number): JSX.Element[] {
 
     for (let i = 1; i <= count; i++) {
         result.push(
-            <MenuItem value={i} key={i}>
+            <MenuItem
+                value={i}
+                key={i}
+            >
                 {i}
             </MenuItem>
         );

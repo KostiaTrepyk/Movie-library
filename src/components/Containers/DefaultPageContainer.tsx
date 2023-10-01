@@ -35,7 +35,7 @@ const DefaultPageContainer = ({ children }: PropsWithChildren) => {
                     width: { md: "83%" },
                     pt: { md: 4, xs: 2 },
                     paddingInline: { lg: 7, xs: "max(3%, 16px)" },
-                    pb: { md: 5, xs: 3 },
+                    pb: { md: 5, xs: 4 },
                     marginInline: "auto",
                     background: {
                         md: "linear-gradient(90deg, rgba(30,30,30,1) 0%, rgba(39,39,39,1) 50%, rgba(30,30,30,1) 100%)",

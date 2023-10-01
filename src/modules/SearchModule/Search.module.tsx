@@ -22,9 +22,14 @@ import ClearIcon from "@mui/icons-material/Clear";
 interface SearchModuleProps {
     isLoading?: boolean;
     data?: { title?: string; year?: string; type?: string };
+    disabled?: boolean;
 }
 
-const SearchModule: React.FC<SearchModuleProps> = ({ isLoading, data }) => {
+const SearchModule: React.FC<SearchModuleProps> = ({
+    isLoading,
+    data,
+    disabled,
+}) => {
     const [title, setTitle] = useState<string>(data?.title || "");
     const [year, setYear] = useState<string>(data?.year || "");
     const [type, setType] = useState<string>(data?.type || "");
@@ -35,7 +40,11 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading, data }) => {
         e.preventDefault();
         if (title.length === 0) return;
 
-        const query = objToSearchParams({ title: title.trim().toLowerCase(), year, type });
+        const query = objToSearchParams({
+            title: title.trim().toLowerCase(),
+            year,
+            type,
+        });
         navigate(SEARCHROUTE.path + "/" + query);
     }
 
@@ -66,7 +75,14 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading, data }) => {
                 {/* Title */}
                 <Typography
                     variant="body1"
-                    sx={{ fontSize: { md: "2rem", sm: "1.75rem", xs: "1.5rem", textAlign: "center" } }}
+                    sx={{
+                        fontSize: {
+                            md: "2rem",
+                            sm: "1.75rem",
+                            xs: "1.5rem",
+                            textAlign: "center",
+                        },
+                    }}
                 >
                     Let's find some Movies
                 </Typography>
@@ -78,7 +94,7 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading, data }) => {
                         onChange: (e) => setTitle(() => e.target.value),
                         value: title,
                         autoComplete: "off",
-                        disabled: isLoading,
+                        disabled: isLoading || disabled,
                         inputMode: "search",
                         endAdornment: Boolean(title) && (
                             <IconButton
@@ -114,7 +130,7 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading, data }) => {
                             onChange: (e) => setYear(() => e.target.value),
                             value: year,
                             autoComplete: "off",
-                            disabled: isLoading,
+                            disabled: isLoading || disabled,
                         }}
                         inputProps={{
                             pattern: "[0-9]{4}",
@@ -123,7 +139,10 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading, data }) => {
                     ></TextField>
 
                     {/* Type input */}
-                    <FormControl sx={{ flexGrow: 10, minWidth: 120 }} disabled={isLoading}>
+                    <FormControl
+                        sx={{ flexGrow: 10, minWidth: 120 }}
+                        disabled={isLoading || disabled}
+                    >
                         <InputLabel>Type</InputLabel>
                         <Select
                             label="Type"
@@ -139,8 +158,18 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading, data }) => {
                     </FormControl>
 
                     {/* SubmitBtn */}
-                    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                        <IconButton size="large" type="submit" disabled={isLoading}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <IconButton
+                            size="large"
+                            type="submit"
+                            disabled={isLoading || disabled}
+                        >
                             <SearchIcon />
                         </IconButton>
                     </Box>
@@ -151,7 +180,13 @@ const SearchModule: React.FC<SearchModuleProps> = ({ isLoading, data }) => {
             {isLoading && (
                 <CircularProgress
                     size={24}
-                    sx={{ position: "absolute", top: "50%", left: "50%", mt: "-12px", ml: "-12px" }}
+                    sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        mt: "-12px",
+                        ml: "-12px",
+                    }}
                 />
             )}
         </Paper>

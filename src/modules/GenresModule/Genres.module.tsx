@@ -8,7 +8,10 @@ interface GenresModuleProps {
 }
 
 /**  fix me */
-const GenresModule: React.FC<GenresModuleProps> = ({ activeGenre, onChange }) => {
+const GenresModule: React.FC<GenresModuleProps> = ({
+    activeGenre,
+    onChange,
+}) => {
     const { data, isFetching } = MovieApi2.useGetAllGenresQuery(undefined);
 
     /* fix me */
@@ -19,16 +22,30 @@ const GenresModule: React.FC<GenresModuleProps> = ({ activeGenre, onChange }) =>
     if (isFetching) {
         return (
             <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
-                <Skeleton variant="text" height={30} />
-                <Skeleton variant="text" height={30} />
-                <Skeleton variant="text" height={30} />
+                <Skeleton
+                    variant="text"
+                    height={30}
+                />
+                <Skeleton
+                    variant="text"
+                    height={30}
+                />
+                <Skeleton
+                    variant="text"
+                    height={30}
+                />
             </Box>
         );
     }
 
     return (
         <Box
-            sx={{ display: "flex", flexWrap: "wrap", gap: 1, justifyContent: "space-between" }}
+            sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 1,
+                justifyContent: { md: "center", xs: "space-evenly" },
+            }}
             onClick={genreClickHandler}
         >
             <Button
@@ -44,8 +61,12 @@ const GenresModule: React.FC<GenresModuleProps> = ({ activeGenre, onChange }) =>
                     {genre && (
                         <Button
                             value={genre}
-                            color={activeGenre === genre ? "primary" : "inherit"}
-                            variant={activeGenre === genre ? "contained" : "text"}
+                            color={
+                                activeGenre === genre ? "primary" : "inherit"
+                            }
+                            variant={
+                                activeGenre === genre ? "contained" : "text"
+                            }
                         >
                             {genre}
                         </Button>
