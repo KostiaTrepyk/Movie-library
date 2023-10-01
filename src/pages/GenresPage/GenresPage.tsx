@@ -1,86 +1,115 @@
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Box, IconButton, LinearProgress, Stack, Typography } from "@mui/material";
+import { motion, useInView } from "framer-motion";
+import { Box, CircularProgress, Typography } from "@mui/material";
+import { grey } from "@mui/material/colors";
 import { getObjFromSearchParams } from "../../helpers/getObjFromSearchParams";
 import { MovieApi2 } from "../../services/MovieApi2";
 import { objToSearchParams } from "../../helpers/objToSearchParams";
-import { DESCRIPTIONROUTE, GENRESROUTE } from "../../core/Router/utils/routes";
+import { GENRESROUTE } from "../../core/Router/utils/routes";
+import { BaseInfoResultEntity } from "../../models/MovieApi2";
 
 import GenresModule from "../../modules/GenresModule/Genres.module";
 
 import DefaultPageContainer from "../../components/Containers/DefaultPageContainer";
-import MovieList from "../../components/MovieList/MovieList2";
+import MovieList from "../../components/MovieList/MovieList";
+import MovieListItem from "../../components/MovieList/components/MovieListItem2";
 
-// Icons
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+interface SearchParams {
+    genre?: string;
+}
 
 const GenresPage = () => {
-    const params = getObjFromSearchParams(useLocation().search);
+    const location = useLocation();
+    const params: SearchParams = useMemo(() => {
+        return getObjFromSearchParams(location.search);
+    }, [location.search]);
+    const [page, setPage] = useState<number>(1);
+    const [films, setFilms] = useState<BaseInfoResultEntity[]>([]);
 
-    const { currentData, isError, isFetching } = MovieApi2.useGetByGenreQuery({
+    const { data, isError, isFetching } = MovieApi2.useGetByGenreQuery({
         genre: params.genre,
-        page: params.page || 1,
+        page,
     });
 
     const navigate = useNavigate();
+
+    const observer = useRef<HTMLDivElement>(null);
+    const isEndOfList = useInView(observer, { margin: "0px 0px 600px 0px" });
+
+    useEffect(() => {
+        setPage(1);
+        setFilms([]);
+    }, [params]);
+
+    /* FIX */
+    useEffect(() => {
+        if (isEndOfList && !isFetching && !isError) {
+            setPage((prev) => prev + 1);
+        }
+    }, [isEndOfList]);
+
+    useEffect(() => {
+        setFilms((prev) => [...prev, ...(data?.results || [])]);
+    }, [data]);
 
     function genreClickHandler(genre: string | undefined) {
         if (!genre) return;
 
         if (genre === "all") {
-            navigate(GENRESROUTE.path + objToSearchParams({ page: 1 }));
+            navigate(GENRESROUTE.path);
             return;
         }
-        navigate(GENRESROUTE.path + objToSearchParams({ genre, page: 1 }));
-    }
-
-    function movieClickHandler(id: string) {
-        navigate(DESCRIPTIONROUTE.path.replace(":id", id));
-    }
-
-    /* Pagination */
-    function changePage(value: number) {
-        const searchParams = objToSearchParams({
-            genre: params.genre,
-            page: +params.page + value || 2,
-        });
-
-        navigate(GENRESROUTE.path + "/" + searchParams);
+        navigate(GENRESROUTE.path + objToSearchParams({ genre }));
     }
 
     return (
         <DefaultPageContainer>
             <Box mb={2}>
-                <GenresModule activeGenre={params.genre || "all"} onChange={genreClickHandler} />
+                <GenresModule
+                    activeGenre={params.genre || "all"}
+                    onChange={genreClickHandler}
+                />
             </Box>
 
-            {isFetching && <LinearProgress />}
-
-            {currentData && <MovieList movies={currentData.results} onMovieClick={movieClickHandler} />}
+            <MovieList>
+                {films.map((movie) => (
+                    <MovieListItem
+                        key={movie.id}
+                        movieData={movie}
+                    />
+                ))}
+            </MovieList>
 
             {isError && (
-                <Typography variant="h4" align="center" sx={{ mt: 3 }}>
+                <Typography
+                    variant="h4"
+                    align="center"
+                    sx={{ mt: 3 }}
+                >
                     Notwork error! Try later.
                 </Typography>
             )}
 
-            {/*  Pagination ? */}
-            {currentData && !isError && (
-                <Stack direction="row" spacing={2} justifyContent={"center"} mt={2}>
-                    <IconButton
-                        disabled={isFetching || isError || +params.page <= 1 || !params.page}
-                        onClick={() => changePage(-1)}
-                    >
-                        <ArrowBackIosNewIcon />
-                    </IconButton>
-                    <IconButton
-                        disabled={isFetching || isError || !currentData?.next}
-                        onClick={() => changePage(1)}
-                    >
-                        <ArrowForwardIosIcon />
-                    </IconButton>
-                </Stack>
-            )}
+            {/* Loader */}
+            <motion.div
+                initial={{ height: 35 }}
+                animate={!isFetching && { height: 0 }}
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: "32px",
+                }}
+                ref={observer}
+                layout="size"
+            >
+                {isFetching && (
+                    <CircularProgress
+                        sx={{ color: grey[600] }}
+                        size={35}
+                    />
+                )}
+            </motion.div>
         </DefaultPageContainer>
     );
 };
